@@ -15,7 +15,81 @@
 </p>
 
 ---
+## 📁 Project Structure
 
+```
+quizengine/
+├── backend/
+│   ├── algorithms/
+│   │   ├── shuffle.js       ← Fisher–Yates shuffle
+│   │   ├── scoring.js       ← Greedy streak scoring engine
+│   │   ├── sorting.js       ← Leaderboard & difficulty sort
+│   │   └── graph.js         ← Topological sort, unlock logic
+│   ├── config/
+│   │   └── db.js            ← MongoDB connection
+│   ├── controllers/
+│   │   ├── authController.js
+│   │   ├── quizController.js
+│   │   ├── topicController.js
+│   │   ├── questionController.js
+│   │   └── leaderboardController.js
+│   ├── data/
+│   │   └── seed.js          ← Seed script (6 topics, 30 questions)
+│   ├── middleware/
+│   │   └── auth.js          ← JWT protect + admin middleware
+│   ├── models/
+│   │   ├── User.js
+│   │   ├── Topic.js         ← Graph nodes
+│   │   ├── Question.js
+│   │   └── QuizAttempt.js
+│   ├── routes/
+│   │   ├── auth.js
+│   │   ├── quiz.js
+│   │   ├── topics.js
+│   │   ├── questions.js
+│   │   ├── leaderboard.js
+│   │   └── users.js
+│   ├── server.js
+│   ├── Dockerfile
+│   └── package.json
+│
+├── frontend/
+│   ├── public/index.html
+│   ├── src/
+│   │   ├── components/
+│   │   │   ├── Graph/
+│   │   │   │   ├── TopicGraph.jsx   ← Interactive SVG graph
+│   │   │   │   └── TopicCard.jsx
+│   │   │   └── UI/
+│   │   │       ├── Navbar.jsx
+│   │   │       └── Navbar.module.css
+│   │   ├── context/
+│   │   │   └── AuthContext.jsx      ← Global auth state
+│   │   ├── pages/
+│   │   │   ├── HomePage.jsx
+│   │   │   ├── LoginPage.jsx
+│   │   │   ├── RegisterPage.jsx
+│   │   │   ├── TopicsPage.jsx
+│   │   │   ├── QuizPage.jsx         ← Main quiz experience
+│   │   │   ├── ResultsPage.jsx
+│   │   │   ├── LeaderboardPage.jsx
+│   │   │   └── HistoryPage.jsx
+│   │   ├── styles/
+│   │   │   └── global.css           ← Design system tokens
+│   │   ├── utils/
+│   │   │   ├── api.js               ← Axios instance
+│   │   │   └── algorithms.js        ← Client-side algorithm mirrors
+│   │   ├── App.jsx
+│   │   └── index.jsx
+│   ├── Dockerfile
+│   ├── nginx.conf
+│   └── package.json
+│
+├── docker-compose.yml
+└── README.md
+```
+
+---
 ## 🚀 Overview
 
 **QuizEngine** is a full-stack, algorithm-powered quiz platform designed to deliver a **smart, adaptive, and engaging learning experience**.
