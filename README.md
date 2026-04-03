@@ -211,9 +211,9 @@ HTML → CSS → JavaScript → React
 ## 📸 Screenshots
 
 <p align="center">
-  <img src="./assets/home.png" width="80%" />
-  <img src="./assets/quiz.png" width="80%" />
-  <img src="./assets/leaderboard.png" width="80%" />
+  <img src="E:\PROJECT\quizengine\Screenshot 2026-04-03 144037.png" width="80%" />
+  <img src="E:\PROJECT\quizengine\Screenshot 2026-04-03 144046.png" width="80%" />
+  <img src="E:\PROJECT\quizengine\Screenshot 2026-04-03 144054.png" width="80%" />
 </p>
 
 ---
@@ -279,8 +279,6 @@ docker-compose exec backend node data/seed.js
 ## 👨‍💻 Author
 
 **Rahul Raj Jaiswal**
-
-🔗 GitHub: https://github.com/yourusername
 💼 LinkedIn: https://www.linkedin.com/in/rahulrajjaiswal/
 
 ---
