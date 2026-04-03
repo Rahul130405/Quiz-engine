@@ -209,12 +209,13 @@ HTML → CSS → JavaScript → React
 ---
 
 ## 📸 Screenshots
+<h3 align="center">📸 Application Preview</h3>
+
 <p align="center">
   <img src="./assets/home.png" width="80%" /><br><br>
   <img src="./assets/quiz.png" width="80%" /><br><br>
   <img src="./assets/leaderboard.png" width="80%" />
 </p>
-
 ---
 
 ## 🌐 Live Demo
