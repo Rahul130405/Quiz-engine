@@ -1,10 +1,20 @@
+# ⚡ QuizEngine
 
-sg# ⚡ QuizEngine
+### *An Intelligent Algorithm-Driven Quiz Platform*
 
-An algorithm-powered interactive quiz platform with adaptive scoring, dependency-based topic unlocking, and real-time leaderboards.
+<p align="center">
+  <b>Adaptive Learning • Real-Time Scoring • Graph-Based Progression</b>
+</p>
+
+<p align="center">
+  <img src="https://img.shields.io/badge/Backend-Node.js-green?style=for-the-badge" />
+  <img src="https://img.shields.io/badge/Frontend-React-blue?style=for-the-badge" />
+  <img src="https://img.shields.io/badge/Database-MongoDB-brightgreen?style=for-the-badge" />
+  <img src="https://img.shields.io/badge/Deployment-Docker-blue?style=for-the-badge" />
+  <img src="https://img.shields.io/badge/License-MIT-yellow?style=for-the-badge" />
+</p>
 
 ---
-YES
 ## 📁 Project Structure
 
 ```
@@ -80,170 +90,197 @@ quizengine/
 ```
 
 ---
+## 🚀 Overview
 
-## 🚀 Quick Start (Local)
+**QuizEngine** is a full-stack, algorithm-powered quiz platform designed to deliver a **smart, adaptive, and engaging learning experience**.
 
-### Prerequisites
-- Node.js 18+
-- MongoDB running locally (`mongod`) or a MongoDB Atlas connection string
+It combines:
 
-### 1. Clone & configure backend
+* 🧠 **Data Structures & Algorithms**
+* ⚡ **Real-time interaction**
+* 🌐 **Modern full-stack architecture**
 
-```bash
-cd quizengine/backend
+to create a **production-ready intelligent learning system**.
+
+---
+
+## ✨ Key Highlights
+
+* ⚡ Algorithm-driven quiz logic
+* 🔗 Graph-based topic unlocking (DAG)
+* 📊 Real-time leaderboard system
+* 🔐 Secure authentication (JWT)
+* 🐳 Docker-ready deployment
+
+---
+
+## 🧠 Core Features
+
+### 🧠 Smart Algorithms
+
+* Fisher–Yates Shuffle (O(n), unbiased randomization)
+* Greedy scoring with streak bonuses
+* DAG-based topic progression (Topological Sort)
+* Multi-condition sorting system
+
+---
+
+### 🎮 Interactive Experience
+
+* Real-time quiz interface
+* Countdown timer + progress tracking
+* Smooth UI transitions
+* Dark/Light mode support
+* Fully responsive design
+
+---
+
+### 🔐 Security & Authentication
+
+* JWT-based authentication system
+* Protected routes & middleware
+* Admin-controlled data operations
+
+---
+
+### 📊 Analytics & Performance
+
+* Dynamic leaderboard ranking
+* Quiz history tracking
+* Score visualization
+* Performance-based topic unlocking
+
+---
+
+## 🏗️ System Architecture
+
+```mermaid id="arch001"
+graph TD
+A[React Frontend] --> B[API Layer]
+B --> C[Node.js Backend]
+C --> D[MongoDB Database]
+```
+
+---
+
+## 🧠 Algorithm Engine (Core Strength)
+
+### 🔀 Fisher–Yates Shuffle
+
+Ensures true randomness in quiz sessions with O(n) complexity.
+
+---
+
+### ⚡ Greedy Scoring Logic
+
+* +5 → Correct
+* −1 → Incorrect (min = 0)
+* 🔥 Streak bonuses:
+
+  * 3 correct → +2
+  * 5 correct → +5
+
+---
+
+### 🔗 Topological Sort (DAG)
+
+* Topic unlocking based on prerequisites
+* Ensures structured learning progression
+* Implemented using Kahn’s Algorithm
+
+---
+
+### 📊 Advanced Sorting
+
+* Leaderboard → score desc + name tie-break
+* Questions → difficulty-based ordering
+* Multi-field comparator system
+
+---
+
+## 🏗️ Learning Path Graph
+
+```
+HTML → CSS → JavaScript → React
+                     ↘
+                      Node.js → Full Stack
+```
+
+---
+
+## 📸 Screenshots
+<h3 align="center">📸 Application Preview</h3>
+<p align="center">
+  <img src="./assets/home.png" width="80%" /><br><br>
+  <img src="./assets/quiz.png" width="80%" /><br><br>
+  <img src="./assets/leaderboard.png" width="80%" />
+</p>
+
+## 🌐 Live Demo
+
+👉 https://your-app-link
+
+---
+
+## ⚙️ Installation Guide
+
+### 🔹 Backend Setup
+
+```bash id="bk1"
+cd backend
 cp .env.example .env
-# Edit .env → set MONGODB_URI and JWT_SECRET
 npm install
-```
-
-### 2. Seed the database
-
-```bash
 npm run seed
+npm run dev
 ```
 
-This creates:
-- 6 topics in a dependency graph (HTML → CSS → JS → React/Node → Full Stack)
-- 30 questions (5 per topic, easy/medium/hard)
-- Demo accounts
+---
 
-**Login credentials after seeding:**
-| Role  | Email                    | Password  |
-|-------|--------------------------|-----------|
-| Admin | admin@quizengine.dev     | admin123  |
-| Demo  | demo@quizengine.dev      | demo1234  |
+### 🔹 Frontend Setup
 
-### 3. Start backend
-
-```bash
-npm run dev       # development (nodemon)
-# or
-npm start         # production
-```
-
-Backend runs on **http://localhost:5000**
-
-### 4. Start frontend
-
-```bash
-cd ../frontend
+```bash id="fr1"
+cd frontend
 npm install
 npm start
 ```
 
-Frontend runs on **http://localhost:3000** (proxies `/api` to port 5000)
-
 ---
 
-## 🐳 Docker (All-in-one)
+## 🐳 Docker Deployment
 
-```bash
-# From project root
+```bash id="dk1"
 docker-compose up --build
-
-# Seed after containers start
 docker-compose exec backend node data/seed.js
 ```
 
-- Frontend: http://localhost:3000
-- Backend:  http://localhost:5000
-- MongoDB:  localhost:27017
+---
+
+## 💡 Why This Project?
+
+✔ Combines **DSA + Full Stack Development**
+✔ Demonstrates **real-world system design**
+✔ Implements **scalable architecture**
+✔ Showcases **problem-solving + engineering thinking**
 
 ---
 
-## 🌐 API Reference
+## 🚀 Future Enhancements
 
-### Auth
-| Method | Route                | Auth | Description        |
-|--------|----------------------|------|--------------------|
-| POST   | /api/auth/register   | ✗    | Create account     |
-| POST   | /api/auth/login      | ✗    | Login → JWT token  |
-| GET    | /api/auth/me         | ✓    | Current user       |
-
-### Topics (Graph Nodes)
-| Method | Route            | Auth  | Description               |
-|--------|------------------|-------|---------------------------|
-| GET    | /api/topics      | ✓     | All topics + unlock status |
-| GET    | /api/topics/:id  | ✓     | Single topic               |
-| POST   | /api/topics      | Admin | Create topic               |
-| PUT    | /api/topics/:id  | Admin | Update topic               |
-| DELETE | /api/topics/:id  | Admin | Delete topic               |
-
-### Questions
-| Method | Route                  | Auth  | Description         |
-|--------|------------------------|-------|---------------------|
-| GET    | /api/questions         | ✓     | List (filterable)   |
-| POST   | /api/questions         | Admin | Create question     |
-| POST   | /api/questions/bulk    | Admin | Bulk create         |
-| PUT    | /api/questions/:id     | Admin | Update question     |
-| DELETE | /api/questions/:id     | Admin | Delete question     |
-
-### Quiz
-| Method | Route            | Auth | Description                     |
-|--------|------------------|------|---------------------------------|
-| POST   | /api/quiz/start  | ✓    | Get shuffled questions           |
-| POST   | /api/quiz/submit | ✓    | Grade answers, save attempt      |
-| GET    | /api/quiz/history| ✓    | Last 20 attempts                 |
-
-### Leaderboard
-| Method | Route                         | Auth | Description            |
-|--------|-------------------------------|------|------------------------|
-| GET    | /api/leaderboard              | ✓    | Global top 50          |
-| GET    | /api/leaderboard/topic/:id    | ✓    | Per-topic leaderboard  |
+* 🤖 AI-based adaptive difficulty
+* 🌐 Multiplayer quiz system
+* ⚡ WebSocket real-time updates
+* 📊 Advanced analytics dashboard
+* 📱 Mobile app version
 
 ---
 
-## 🧠 Algorithms Explained
+## 👨‍💻 Author
 
-### 1. Fisher–Yates Shuffle — `backend/algorithms/shuffle.js`
-Runs in **O(n)** time. Guarantees every permutation is equally likely (unlike `sort(() => Math.random() - 0.5)` which is biased). Used every time a quiz session starts.
-
-### 2. Greedy Scoring — `backend/algorithms/scoring.js`
-Scores each answer immediately without lookahead:
-- ✅ Correct: **+5**
-- ❌ Wrong: **−1** (floor: 0)
-- 🔥 3-in-a-row streak: **+2 bonus**
-- 🔥🔥 5-in-a-row streak: **+5 bonus**
-
-### 3. Graph Topology — `backend/algorithms/graph.js`
-Topics form a **directed acyclic graph (DAG)**. Kahn's Algorithm (BFS-based topological sort) determines display order. `isTopicUnlocked()` checks all prerequisites are completed before allowing quiz access.
-
-### 4. Sorting — `backend/algorithms/sorting.js`
-- Leaderboard: stable sort by score desc, alphabetical tiebreak
-- Questions: difficulty order (easy → medium → hard), date tiebreak
-- Dynamic sort: composable multi-field comparator
+**Rahul Raj Jaiswal**
+💼 LinkedIn: https://www.linkedin.com/in/rahulrajjaiswal/
 
 ---
 
-## 🏗️ Topic Graph Layout
+## 📄 License
 
-```
-HTML ──────► CSS ──────► JavaScript ──────► React
-                                │
-                                └──────────► Node.js ──► Full Stack
-```
-
-Prerequisites must be completed (≥ passing score) before the next topic unlocks.
-
----
-
-## ✅ Checklist
-
-- [x] Fisher–Yates shuffle (no repeats in a session)
-- [x] Difficulty sorting (easy → medium → hard)
-- [x] Greedy scoring with streak bonuses (+2 at 3×, +5 at 5×)
-- [x] Real-time score updates with animated feedback
-- [x] Per-question countdown timer
-- [x] Progress bar
-- [x] Graph-based topic dependencies (DAG + topological sort)
-- [x] Interactive SVG topic graph with pan support
-- [x] Leaderboard with toggle sort
-- [x] Quiz history
-- [x] JWT authentication (register / login)
-- [x] Dark / light theme toggle
-- [x] Responsive design (mobile + desktop)
-- [x] MongoDB models with proper indexes
-- [x] REST API with admin routes
-- [x] Seed script (30 questions, 6 topics, demo users)
-- [x] Docker + nginx for deployment
-
+This project is licensed under the MIT License.
