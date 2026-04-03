@@ -4,7 +4,7 @@ sg# ⚡ QuizEngine
 An algorithm-powered interactive quiz platform with adaptive scoring, dependency-based topic unlocking, and real-time leaderboards.
 
 ---
-
+YES
 ## 📁 Project Structure
 
 ```
@@ -246,3 +246,4 @@ Prerequisites must be completed (≥ passing score) before the next topic unlock
 - [x] REST API with admin routes
 - [x] Seed script (30 questions, 6 topics, demo users)
 - [x] Docker + nginx for deployment
+
