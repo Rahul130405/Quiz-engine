@@ -65,10 +65,10 @@ export default function HomePage() {
         </h2>
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))", gap: "1rem" }}>
           {[
-            { label: "Correct Answer",    value: "+5 pts",  color: "var(--success)" },
+            { label: "Correct Answer",    value: "+4 pts",  color: "var(--success)" },
             { label: "Wrong Answer",      value: "−1 pt",   color: "var(--error)" },
-            { label: "3-in-a-row Streak", value: "+2 bonus",color: "var(--warning)" },
-            { label: "5-in-a-row Streak", value: "+5 bonus",color: "var(--accent)" },
+            { label: "3-in-a-row Streak", value: "+1 bonus",color: "var(--warning)" },
+            { label: "5-in-a-row Streak", value: "+2 bonus",color: "var(--accent)" },
           ].map(({ label, value, color }) => (
             <div key={label} style={{
               background: "var(--bg-3)", borderRadius: "var(--radius-sm)",
