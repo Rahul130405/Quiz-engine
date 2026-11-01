@@ -1,0 +1,6 @@
+target
+temp-tomcat
+.git
+*.log
+.env
+.env.local

@@ -1,80 +1,160 @@
-import React from "react";
+import React, { useState } from "react";
 
 export default function TopicCard({ topic, onStart, style }) {
-  const { name, description, icon, color, unlocked, completed, bestScore, attempts, prerequisites } = topic;
+  const {
+    name,
+    description,
+    icon,
+    color,
+    passingScore,
+  } = topic;
 
-  const statusLabel = completed ? "✅ Completed" : unlocked ? "🔓 Unlocked" : "🔒 Locked";
-  const statusColor = completed ? "var(--success)" : unlocked ? "var(--accent)" : "var(--text-3)";
+  const [isHovered, setIsHovered] = useState(false);
+  const [btnHovered, setBtnHovered] = useState(false);
 
   return (
     <div
       className="card fade-in"
       style={{
         ...style,
-        opacity:   unlocked ? 1 : 0.6,
-        cursor:    unlocked ? "pointer" : "not-allowed",
-        position:  "relative",
-        overflow:  "hidden",
-        transition: "all 0.2s ease",
-        borderColor: completed ? "rgba(34,197,94,0.3)" : undefined,
+        display: "flex",
+        flexDirection: "column",
+        height: "100%",
+        opacity: 1,
+        cursor: "pointer",
+        position: "relative",
+        overflow: "hidden",
+        transition: "all 0.25s cubic-bezier(0.4, 0, 0.2, 1)",
+        background: "var(--bg-2)",
+        border: isHovered ? "1px solid rgba(59, 130, 246, 0.5)" : "1px solid var(--border)",
+        transform: isHovered ? "translateY(-4px)" : "none",
+        boxShadow: isHovered
+          ? "0 12px 32px rgba(59, 130, 246, 0.15), 0 4px 12px rgba(0, 0, 0, 0.3)"
+          : "var(--shadow)",
       }}
       onClick={() => onStart(topic)}
-      onMouseEnter={(e) => {
-        if (unlocked) {
-          e.currentTarget.style.transform = "translateY(-3px)";
-          e.currentTarget.style.boxShadow = `0 8px 32px ${color}33`;
-          e.currentTarget.style.borderColor = color;
-        }
-      }}
-      onMouseLeave={(e) => {
-        e.currentTarget.style.transform = "";
-        e.currentTarget.style.boxShadow = "";
-        e.currentTarget.style.borderColor = "";
-      }}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
     >
-      {/* Colour accent bar */}
-      <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 3, background: color, borderRadius: "14px 14px 0 0" }} />
+      {/* Subtle top accent bar */}
+      <div
+        style={{
+          position: "absolute",
+          top: 0,
+          left: 0,
+          right: 0,
+          height: 3,
+          background: color || "var(--accent)",
+          borderRadius: "14px 14px 0 0",
+        }}
+      />
 
-      <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", marginBottom: "0.75rem" }}>
-        <span style={{ fontSize: "2.2rem" }}>{icon}</span>
-        <span style={{ color: statusColor, fontSize: "0.8rem", fontWeight: 600 }}>{statusLabel}</span>
+      {/* 1. Topic Icon */}
+      <div
+        style={{
+          width: "52px",
+          height: "52px",
+          borderRadius: "12px",
+          background: "rgba(255, 255, 255, 0.04)",
+          border: "1px solid rgba(255, 255, 255, 0.08)",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          fontSize: "1.85rem",
+          marginBottom: "1.25rem",
+        }}
+      >
+        {icon || "📚"}
       </div>
 
-      <h3 style={{ fontFamily: "var(--font-display)", fontSize: "1.1rem", marginBottom: "0.4rem" }}>{name}</h3>
-      <p style={{ color: "var(--text-2)", fontSize: "0.87rem", lineHeight: 1.5, marginBottom: "1rem" }}>{description}</p>
+      {/* 2. Topic Title */}
+      <h3
+        style={{
+          fontFamily: "var(--font-display)",
+          fontSize: "1.25rem",
+          fontWeight: 700,
+          color: "var(--text)",
+          marginBottom: "0.5rem",
+          letterSpacing: "-0.01em",
+        }}
+      >
+        {name}
+      </h3>
 
-      {/* Stats row */}
-      <div style={{ display: "flex", gap: "1rem", fontSize: "0.82rem", color: "var(--text-3)" }}>
-        {attempts > 0 && (
-          <>
-            <span>🏆 Best: <strong style={{ color: "var(--text)" }}>{bestScore}</strong></span>
-            <span>📝 Tries: <strong style={{ color: "var(--text)" }}>{attempts}</strong></span>
-          </>
-        )}
+      {/* 3. Short Description */}
+      <p
+        style={{
+          color: "var(--text-2)",
+          fontSize: "0.875rem",
+          lineHeight: 1.55,
+          marginBottom: "1.25rem",
+          flex: "1 0 auto",
+        }}
+      >
+        {description}
+      </p>
+
+      {/* 4. Pass Percentage */}
+      <div
+        style={{
+          display: "inline-flex",
+          alignItems: "center",
+          gap: "0.45rem",
+          padding: "0.35rem 0.75rem",
+          borderRadius: "8px",
+          background: "var(--bg-3)",
+          border: "1px solid var(--border)",
+          fontSize: "0.85rem",
+          color: "var(--text-2)",
+          marginBottom: "1.5rem",
+          width: "fit-content",
+        }}
+      >
+        <span style={{ color: "var(--text-3)" }}>Pass Percentage:</span>
+        <strong style={{ color: "var(--text)", fontWeight: 700 }}>
+          {passingScore || 60}%
+        </strong>
       </div>
 
-      {/* Prerequisites */}
-      {!unlocked && prerequisites?.length > 0 && (
-        <div style={{ marginTop: "0.75rem", fontSize: "0.8rem", color: "var(--text-3)" }}>
-          Requires: {prerequisites.map((p) => p && typeof p === "object" ? (p.name || p.id) : p).join(", ")}
-        </div>
-      )}
-
-      {unlocked && (
-        <div style={{
-          marginTop:     "1rem",
-          padding:       "0.55rem 1rem",
-          background:    `${color}18`,
-          border:        `1px solid ${color}33`,
-          borderRadius:  "var(--radius-sm)",
-          color:         color,
-          fontSize:      "0.88rem",
-          fontWeight:    600,
-          textAlign:     "center",
-        }}>
-          {completed ? "Retake Quiz →" : "Start Quiz →"}
-        </div>
-      )}
+      {/* 5. Prominent Electric-Blue Start Quiz Button */}
+      <div style={{ marginTop: "auto", width: "100%" }}>
+        <button
+          type="button"
+          className="start-quiz-btn"
+          style={{
+            width: "100%",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            gap: "0.6rem",
+            padding: "0.85rem 1.25rem",
+            background: btnHovered || isHovered
+              ? "linear-gradient(135deg, #2563EB 0%, #1D4ED8 100%)"
+              : "linear-gradient(135deg, #3B82F6 0%, #2563EB 100%)",
+            color: "#FFFFFF",
+            border: "none",
+            borderRadius: "10px",
+            fontSize: "0.95rem",
+            fontWeight: 700,
+            letterSpacing: "0.02em",
+            cursor: "pointer",
+            boxShadow: btnHovered || isHovered
+              ? "0 0 20px rgba(59, 130, 246, 0.55), 0 4px 12px rgba(0, 0, 0, 0.3)"
+              : "0 4px 14px rgba(37, 99, 235, 0.35)",
+            transform: btnHovered ? "translateY(-1px) scale(1.01)" : "none",
+            transition: "all 0.2s cubic-bezier(0.4, 0, 0.2, 1)",
+          }}
+          onClick={(e) => {
+            e.stopPropagation();
+            onStart(topic);
+          }}
+          onMouseEnter={() => setBtnHovered(true)}
+          onMouseLeave={() => setBtnHovered(false)}
+        >
+          <span>▶ Start Quiz</span>
+          <span style={{ fontSize: "1.05rem", fontWeight: 800 }}>→</span>
+        </button>
+      </div>
     </div>
   );
 }

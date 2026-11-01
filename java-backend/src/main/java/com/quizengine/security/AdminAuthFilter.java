@@ -29,7 +29,8 @@ public class AdminAuthFilter implements Filter {
 
         // Whitelisted endpoints under /admin
         if (path.equals("/admin/login") || path.equals("/admin/logout") ||
-            path.startsWith("/static/") || path.startsWith("/css/") || path.startsWith("/js/")) {
+            path.startsWith("/static/") || path.startsWith("/css/") || path.startsWith("/js/") ||
+            path.startsWith("/admin/static/")) {
             chain.doFilter(request, response);
             return;
         }

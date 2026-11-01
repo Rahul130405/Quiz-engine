@@ -25,8 +25,6 @@
         <color>#f89820</color>
         <passingScore>65</passingScore>
         <order>2</order>
-        <prerequisites>
-            <prerequisite>topic-daa</prerequisite>
-        </prerequisites>
+        <prerequisites/>
     </topic>
 </topics>

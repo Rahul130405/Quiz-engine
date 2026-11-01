@@ -8,138 +8,53 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Question Management - QuizEngine Admin</title>
+    <link rel="icon" type="image/jpeg" href="/favicon.jpeg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/admin/static/css/admin.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/admin.css">
-    <style>
-        .filter-bar {
-            background: #fff;
-            padding: 1rem 1.5rem;
-            border-radius: 8px;
-            border: 1px solid var(--border);
-            margin-bottom: 1.5rem;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 1rem;
-            align-items: flex-end;
-        }
-        .filter-item {
-            flex: 1;
-            min-width: 180px;
-        }
-        .question-card {
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            margin-bottom: 1rem;
-            background: #fff;
-            overflow: hidden;
-            box-shadow: 0 1px 2px rgba(0,0,0,0.04);
-        }
-        .question-header {
-            padding: 1rem 1.25rem;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            background: #fff;
-            cursor: pointer;
-            border-bottom: 1px solid transparent;
-        }
-        .question-card.open .question-header {
-            border-bottom-color: var(--border);
-            background: #f8fafc;
-        }
-        .question-details {
-            display: none;
-            padding: 1.25rem;
-            background: #fafbfc;
-        }
-        .question-card.open .question-details {
-            display: block;
-        }
-        .options-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 0.75rem;
-            margin: 1rem 0;
-        }
-        .option-item {
-            padding: 0.75rem 1rem;
-            border-radius: 6px;
-            background: #fff;
-            border: 1px solid var(--border);
-            font-size: 0.875rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-        .option-item.correct {
-            border-color: #10b981;
-            background: #ecfdf5;
-            font-weight: 600;
-            color: #065f46;
-        }
-        .opt-letter {
-            width: 24px;
-            height: 24px;
-            border-radius: 50%;
-            background: #e2e8f0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.75rem;
-            font-weight: 700;
-        }
-        .option-item.correct .opt-letter {
-            background: #10b981;
-            color: #fff;
-        }
-        .explanation-box {
-            background: #eff6ff;
-            border: 1px solid #bfdbfe;
-            border-radius: 6px;
-            padding: 0.75rem 1rem;
-            font-size: 0.85rem;
-            color: #1e40af;
-            margin-top: 0.75rem;
-        }
-    </style>
 </head>
 <body>
 
 <%@ include file="header.jspf" %>
 
+<!-- Alerts -->
 <c:if test="${not empty successMessage}">
     <div class="alert alert-success">
-        <span>✓</span>
-        <div>${successMessage}</div>
+        <span>✅</span>
+        <div><c:out value="${successMessage}" /></div>
     </div>
 </c:if>
 
 <c:if test="${not empty errorMessage}">
     <div class="alert alert-danger">
         <span>⚠️</span>
-        <div>${errorMessage}</div>
+        <div><c:out value="${errorMessage}" /></div>
     </div>
 </c:if>
 
-<!-- Search and Filter Form -->
-<form method="GET" action="${pageContext.request.contextPath}/admin/questions" class="filter-bar">
-    <div class="filter-item" style="flex:2;">
-        <label class="form-label" for="search">Search Keywords / ID</label>
-        <input class="form-control" type="text" id="search" name="search" value="${search}" placeholder="Search question text or q-html-...">
+<!-- Filter & Search Toolbar -->
+<form method="GET" action="${pageContext.request.contextPath}/admin/questions" class="filter-toolbar">
+    <div class="filter-group" style="flex: 2;">
+        <label for="searchInput">Search Keywords / ID</label>
+        <input class="filter-input" type="text" id="searchInput" name="search" value="${search}"
+               placeholder="Search question text or q-html-...">
     </div>
 
-    <div class="filter-item">
-        <label class="form-label" for="topicId">Topic</label>
-        <select class="form-control" id="topicId" name="topicId">
+    <div class="filter-group">
+        <label for="topicSelect">Curriculum Topic</label>
+        <select class="filter-input" id="topicSelect" name="topicId">
             <option value="all">All Topics</option>
             <c:forEach var="t" items="${topics}">
-                <option value="${t.id}" ${selectedTopic == t.id ? 'selected' : ''}>${t.name}</option>
+                <option value="${t.id}" ${selectedTopic == t.id ? 'selected' : ''}><c:out value="${t.name}" /></option>
             </c:forEach>
         </select>
     </div>
 
-    <div class="filter-item">
-        <label class="form-label" for="difficulty">Difficulty</label>
-        <select class="form-control" id="difficulty" name="difficulty">
+    <div class="filter-group">
+        <label for="difficultySelect">Difficulty Tier</label>
+        <select class="filter-input" id="difficultySelect" name="difficulty">
             <option value="all">All Difficulties</option>
             <option value="easy" ${selectedDifficulty == 'easy' ? 'selected' : ''}>Easy</option>
             <option value="medium" ${selectedDifficulty == 'medium' ? 'selected' : ''}>Medium</option>
@@ -147,65 +62,69 @@
         </select>
     </div>
 
-    <div>
-        <button type="submit" class="btn btn-primary" style="height:38px;">🔍 Filter</button>
-        <a href="${pageContext.request.contextPath}/admin/questions" class="btn btn-secondary" style="height:38px;">Clear</a>
+    <div class="filter-actions">
+        <button type="submit" class="btn btn-primary" style="height: 38px;">
+            <span>🔍</span> Filter
+        </button>
+        <a href="${pageContext.request.contextPath}/admin/questions" class="btn btn-secondary" style="height: 38px;">
+            Clear
+        </a>
     </div>
 </form>
 
-<!-- Results Header -->
-<div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem;">
-    <div style="font-size:0.9rem; color:var(--text-muted);">
-        Showing <strong>${result.items.size()}</strong> of <strong>${result.totalItems}</strong> questions
-        (Page ${result.currentPage} of ${result.totalPages > 0 ? result.totalPages : 1})
+<!-- Header & Add Button -->
+<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem;">
+    <div style="font-size: 0.875rem; color: var(--text-muted);">
+        Showing <strong><c:out value="${result.items.size()}" /></strong> of <strong><c:out value="${result.totalItems}" /></strong> questions
+        (Page <c:out value="${result.currentPage}" /> of <c:out value="${result.totalPages > 0 ? result.totalPages : 1}" />)
     </div>
     <a href="${pageContext.request.contextPath}/admin/questions/create" class="btn btn-primary btn-sm">
-        ➕ Create New Question
+        <span>➕</span> Add New Question
     </a>
 </div>
 
 <!-- Questions Accordion / List -->
 <c:choose>
     <c:when test="${not empty result.items}">
-        <c:forEach var="q" items="${result.items}" varStatus="status">
+        <c:forEach var="q" items="${result.items}">
             <div class="question-card" id="card-${q.id}">
-                <div class="question-header" onclick="toggleDetails('${q.id}')">
-                    <div style="display:flex; align-items:center; gap:0.75rem; flex:1;">
-                        <code style="font-size:0.825rem; font-weight:700; background:#f1f5f9; padding:2px 6px; border-radius:4px;">${q.id}</code>
-                        <span class="badge badge-topic">${q.topicId}</span>
+                <div class="question-header">
+                    <div class="question-meta-group">
+                        <span class="code-pill"><c:out value="${q.id}" /></span>
+                        <span class="badge badge-topic"><c:out value="${q.topicId}" /></span>
                         <c:choose>
                             <c:when test="${q.difficulty == 'easy'}"><span class="badge badge-easy">Easy</span></c:when>
                             <c:when test="${q.difficulty == 'medium'}"><span class="badge badge-medium">Medium</span></c:when>
                             <c:otherwise><span class="badge badge-hard">Hard</span></c:otherwise>
                         </c:choose>
-                        <span style="font-size:0.8rem; color:var(--text-muted);">⏱ ${q.timeLimitSeconds}s</span>
-                        <div style="font-weight:600; font-size:0.925rem; margin-left:0.5rem; flex:1;">
-                            ${q.text}
-                        </div>
+                        <span style="font-size: 0.8125rem; color: var(--text-subtle);">⏱ <c:out value="${q.timeLimitSeconds}" />s</span>
                     </div>
 
-                    <div style="display:flex; gap:0.5rem; align-items:center;" onclick="event.stopPropagation();">
+                    <div class="question-preview-text" title="${q.text}">
+                        <c:out value="${q.text}" />
+                    </div>
+
+                    <div class="question-actions-group">
                         <a href="${pageContext.request.contextPath}/admin/questions/edit?id=${q.id}" class="btn btn-secondary btn-sm">
-                            ✏️ Edit
+                            <span>✏️</span> Edit
                         </a>
-                        <form method="POST" action="${pageContext.request.contextPath}/admin/questions/delete" style="margin:0;"
-                              onsubmit="return confirm('Are you sure you want to delete question ${q.id}? This action updates the XML store permanently.');">
-                            <input type="hidden" name="csrfToken" value="${sessionScope.csrfToken}">
-                            <input type="hidden" name="id" value="${q.id}">
-                            <button type="submit" class="btn btn-danger btn-sm">🗑️ Delete</button>
-                        </form>
+                        <button type="button" class="btn btn-danger btn-sm btn-trigger-delete" data-id="${q.id}">
+                            <span>🗑️</span> Delete
+                        </button>
+                        <span class="accordion-chevron" style="color: var(--text-subtle); font-size: 0.75rem; margin-left: 0.25rem;">▼</span>
                     </div>
                 </div>
 
-                <!-- Expanded Details (Admin View Only) -->
+                <!-- Expanded Details (Reveals Options & Answer to Admin) -->
                 <div class="question-details">
-                    <div style="font-size:0.8rem; font-weight:700; color:var(--text-muted); text-transform:uppercase; margin-bottom:0.5rem;">
-                        Available Options (Correct Answer Revealed to Admin):
+                    <div style="font-size: 0.75rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.04em;">
+                        Authoritative Options &amp; Verified Answer Key:
                     </div>
+
                     <div class="options-grid">
                         <c:forEach var="opt" items="${q.options}" varStatus="optStatus">
                             <div class="option-item ${optStatus.index == q.correctAnswer ? 'correct' : ''}">
-                                <div class="opt-letter">
+                                <div class="option-marker">
                                     <c:choose>
                                         <c:when test="${optStatus.index == 0}">A</c:when>
                                         <c:when test="${optStatus.index == 1}">B</c:when>
@@ -213,9 +132,9 @@
                                         <c:otherwise>D</c:otherwise>
                                     </c:choose>
                                 </div>
-                                <div style="flex:1;">${opt}</div>
+                                <div style="flex: 1; color: var(--text-primary);"><c:out value="${opt}" /></div>
                                 <c:if test="${optStatus.index == q.correctAnswer}">
-                                    <span style="font-size:0.75rem; background:#10b981; color:#fff; padding:2px 6px; border-radius:4px;">CORRECT</span>
+                                    <span class="badge badge-easy">CORRECT ANSWER</span>
                                 </c:if>
                             </div>
                         </c:forEach>
@@ -223,7 +142,10 @@
 
                     <c:if test="${not empty q.explanation}">
                         <div class="explanation-box">
-                            <strong>💡 Pedagogical Explanation:</strong> ${q.explanation}
+                            <div class="explanation-title">
+                                <span>💡</span> Pedagogical Explanation
+                            </div>
+                            <div><c:out value="${q.explanation}" /></div>
                         </div>
                     </c:if>
                 </div>
@@ -233,15 +155,19 @@
         <!-- Pagination Controls -->
         <c:if test="${result.totalPages > 1}">
             <div class="pagination">
-                <div>Page <strong>${result.currentPage}</strong> of <strong>${result.totalPages}</strong></div>
-                <div class="page-buttons">
+                <div style="font-size: 0.875rem; color: var(--text-muted);">
+                    Page <strong><c:out value="${result.currentPage}" /></strong> of <strong><c:out value="${result.totalPages}" /></strong>
+                </div>
+                <div class="pagination-links">
                     <c:if test="${result.hasPrevious()}">
-                        <a href="${pageContext.request.contextPath}/admin/questions?search=${search}&topicId=${selectedTopic}&difficulty=${selectedDifficulty}&page=${result.currentPage - 1}" class="btn btn-secondary btn-sm">
+                        <a href="${pageContext.request.contextPath}/admin/questions?search=${search}&topicId=${selectedTopic}&difficulty=${selectedDifficulty}&page=${result.currentPage - 1}"
+                           class="page-btn">
                             ← Previous
                         </a>
                     </c:if>
                     <c:if test="${result.hasNext()}">
-                        <a href="${pageContext.request.contextPath}/admin/questions?search=${search}&topicId=${selectedTopic}&difficulty=${selectedDifficulty}&page=${result.currentPage + 1}" class="btn btn-secondary btn-sm">
+                        <a href="${pageContext.request.contextPath}/admin/questions?search=${search}&topicId=${selectedTopic}&difficulty=${selectedDifficulty}&page=${result.currentPage + 1}"
+                           class="page-btn">
                             Next →
                         </a>
                     </c:if>
@@ -250,22 +176,39 @@
         </c:if>
     </c:when>
     <c:otherwise>
-        <div class="panel" style="text-align:center; padding:3rem 1.5rem;">
-            <div style="font-size:2.5rem; margin-bottom:0.5rem;">🔍</div>
-            <h3 style="font-size:1.15rem; font-weight:600;">No matching questions found</h3>
-            <p style="color:var(--text-muted); font-size:0.9rem; margin-top:0.25rem;">Try adjusting your search criteria or topic filter.</p>
-            <a href="${pageContext.request.contextPath}/admin/questions" class="btn btn-secondary btn-sm" style="margin-top:1rem;">Reset Filters</a>
+        <div class="panel" style="text-align: center; padding: 4rem 2rem;">
+            <div style="font-size: 2.75rem; margin-bottom: 0.75rem;">🔍</div>
+            <h3 style="font-size: 1.25rem; font-weight: 700; color: var(--text-primary);">No matching questions found</h3>
+            <p style="color: var(--text-muted); font-size: 0.875rem; margin-top: 0.35rem;">
+                Try adjusting your search query, topic filter, or difficulty filter.
+            </p>
+            <a href="${pageContext.request.contextPath}/admin/questions" class="btn btn-secondary btn-sm" style="margin-top: 1.25rem;">
+                Reset All Filters
+            </a>
         </div>
     </c:otherwise>
 </c:choose>
 
-<script>
-    function toggleDetails(id) {
-        const card = document.getElementById('card-' + id);
-        if (card) {
-            card.classList.toggle('open');
-        }
-    }
-</script>
+<!-- Delete Confirmation Modal Dialog -->
+<div class="modal-overlay" id="deleteConfirmModal">
+    <div class="modal-dialog">
+        <h3 class="modal-title">
+            <span>🗑️</span> Confirm Question Deletion
+        </h3>
+        <p class="modal-body-text">
+            Are you sure you want to permanently delete question <strong id="deleteQuestionTargetSpan" style="color: var(--text-primary);"></strong>?
+            This operation will remove the question from the XML repository.
+        </p>
+
+        <form method="POST" action="${pageContext.request.contextPath}/admin/questions/delete" id="deleteConfirmForm">
+            <input type="hidden" name="csrfToken" value="${sessionScope.csrfToken}">
+            <input type="hidden" name="id" id="deleteQuestionIdInput" value="">
+            <div class="modal-actions">
+                <button type="button" class="btn btn-secondary btn-sm" id="cancelDeleteBtn">Cancel</button>
+                <button type="submit" class="btn btn-danger btn-sm">Permanently Delete</button>
+            </div>
+        </form>
+    </div>
+</div>
 
 <%@ include file="footer.jspf" %>

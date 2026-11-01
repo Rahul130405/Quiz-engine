@@ -2,5 +2,8 @@
         </main>
     </div>
 </div>
+
+<script src="${pageContext.request.contextPath}/admin/static/js/admin.js"></script>
+<script src="${pageContext.request.contextPath}/static/js/admin.js"></script>
 </body>
 </html>

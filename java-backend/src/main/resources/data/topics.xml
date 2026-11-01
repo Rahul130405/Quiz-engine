@@ -1,23 +1,5 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <topics>
-    <topic id="topic-html">
-        <name>HTML Fundamentals</name>
-        <description>Learn the building blocks of the web</description>
-        <icon>🌐</icon>
-        <color>#e34c26</color>
-        <passingScore>60</passingScore>
-        <order>0</order>
-        <prerequisites/>
-    </topic>
-    <topic id="topic-daa">
-        <name>Design Analysis and Algorithm (DAA)</name>
-        <description>Master algorithm design, complexity analysis, and efficiency.</description>
-        <icon>🧠</icon>
-        <color>#475569</color>
-        <passingScore>70</passingScore>
-        <order>1</order>
-        <prerequisites/>
-    </topic>
     <topic id="topic-java">
         <name>Java Programming</name>
         <description>Learn core Java concepts including Packages, Exception Handling, and Multithreading.</description>
@@ -25,8 +7,24 @@
         <color>#f89820</color>
         <passingScore>65</passingScore>
         <order>2</order>
+    </topic>
+    <topic id="topic-daa">
+        <name>Design and Analysis of Algorithms</name>
+        <description>Description</description>
+        <icon>Cpu</icon>
+        <color>#475569</color>
+        <passingScore>70</passingScore>
+        <order>1</order>
         <prerequisites>
-            <prerequisite>topic-daa</prerequisite>
+            <prerequisite>topic-java</prerequisite>
         </prerequisites>
+    </topic>
+    <topic id="topic-html">
+        <name>HTML Fundamentals</name>
+        <description>Learn the building blocks of the web</description>
+        <icon>&#127760;</icon>
+        <color>#e34c26</color>
+        <passingScore>60</passingScore>
+        <order>0</order>
     </topic>
 </topics>

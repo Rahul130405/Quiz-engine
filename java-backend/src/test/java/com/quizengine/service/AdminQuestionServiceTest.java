@@ -216,7 +216,7 @@ class AdminQuestionServiceTest {
         );
         assertFalse(XmlQuestionDao.hasPrerequisiteCycle(validDag), "Valid DAG must not be flagged as cyclic");
 
-        // Attempting to make topic-html require topic-java (which requires topic-daa) creates a potential cycle if topic-daa requires topic-html
+        // Attempting to make topic-daa require itself creates a cycle
         Topic invalidTopic = new Topic(
                 "topic-daa",
                 "Design and Analysis of Algorithms",
@@ -225,7 +225,7 @@ class AdminQuestionServiceTest {
                 "#475569",
                 70,
                 1,
-                List.of("topic-java") // topic-java already requires topic-daa!
+                List.of("topic-daa") // Self-dependency cycle!
         );
 
         IllegalArgumentException ex = assertThrows(IllegalArgumentException.class, () -> {

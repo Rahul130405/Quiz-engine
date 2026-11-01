@@ -8,21 +8,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit Question - QuizEngine Admin</title>
+    <link rel="icon" type="image/jpeg" href="/favicon.jpeg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/admin/static/css/admin.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/admin.css">
-    <style>
-        .form-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1.25rem;
-        }
-        .full-width {
-            grid-column: span 2;
-        }
-        @media (max-width: 768px) {
-            .form-grid { grid-template-columns: 1fr; }
-            .full-width { grid-column: span 1; }
-        }
-    </style>
 </head>
 <body>
 
@@ -31,68 +22,91 @@
 <c:if test="${not empty errorMessage}">
     <div class="alert alert-danger">
         <span>⚠️</span>
-        <div>${errorMessage}</div>
+        <div><c:out value="${errorMessage}" /></div>
     </div>
 </c:if>
 
-<div class="panel" style="max-width: 860px; margin: 0 auto;">
+<div class="panel" style="max-width: 920px; margin: 0 auto;">
     <div class="panel-header">
-        <h2 class="panel-title">Modify Question: <code>${question.id}</code></h2>
-        <span style="font-size:0.8rem; color:var(--text-muted);">Atomic update to authoritative XML datastore</span>
+        <h2 class="panel-title">
+            <span>✏️</span> Edit Question: <span class="code-pill"><c:out value="${question.id}" /></span>
+        </h2>
+        <span class="code-pill">Atomic XML Update</span>
     </div>
+
     <div class="panel-body">
         <form method="POST" action="${pageContext.request.contextPath}/admin/questions/edit">
             <input type="hidden" name="csrfToken" value="${sessionScope.csrfToken}">
 
-            <div class="form-grid">
-                <!-- Question ID (Read-only identity preservation) -->
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem;">
+                <!-- Immutable Identifier & Topic -->
                 <div class="form-group">
-                    <label class="form-label" for="id">Question Identifier (Immutable)</label>
-                    <input class="form-control" type="text" id="id" name="id" value="${question.id}" readonly style="background:#f1f5f9; cursor:not-allowed;">
-                    <small style="color:var(--text-muted); font-size:0.75rem;">Question identity is preserved to maintain attempt history integrity.</small>
+                    <label class="form-label" for="idInput">
+                        Question Identifier (Immutable)
+                    </label>
+                    <input class="form-control" type="text" id="idInput" name="id" value="${question.id}" readonly
+                           style="background-color: var(--bg-surface-elevated); color: var(--text-muted); cursor: not-allowed;">
+                    <small style="color: var(--text-subtle); font-size: 0.75rem; margin-top: 0.25rem;">
+                        Question identity is preserved to maintain attempt history integrity.
+                    </small>
                 </div>
 
-                <!-- Topic -->
                 <div class="form-group">
-                    <label class="form-label" for="topicId">Topic <span style="color:#ef4444;">*</span></label>
-                    <select class="form-control" id="topicId" name="topicId" required>
+                    <label class="form-label" for="topicSelect">
+                        Curriculum Topic <span class="required-dot">*</span>
+                    </label>
+                    <select class="form-control" id="topicSelect" name="topicId" required>
                         <c:forEach var="t" items="${topics}">
-                            <option value="${t.id}" ${question.topicId == t.id ? 'selected' : ''}>${t.name} (${t.id})</option>
+                            <option value="${t.id}" ${question.topicId == t.id ? 'selected' : ''}>
+                                <c:out value="${t.name}" /> (${t.id})
+                            </option>
                         </c:forEach>
                     </select>
                 </div>
 
-                <!-- Question Text -->
-                <div class="form-group full-width">
-                    <label class="form-label" for="text">Question Statement <span style="color:#ef4444;">*</span></label>
-                    <textarea class="form-control" id="text" name="text" rows="3" required minlength="5" maxlength="500">${question.text}</textarea>
+                <!-- Question Prompt -->
+                <div class="form-group" style="grid-column: span 2;">
+                    <label class="form-label" for="textStatement">
+                        Question Statement <span class="required-dot">*</span>
+                    </label>
+                    <textarea class="form-control" id="textStatement" name="text" rows="3" required minlength="5" maxlength="500"><c:out value="${question.text}" /></textarea>
                 </div>
 
-                <!-- Options A, B, C, D -->
+                <!-- 4 Options -->
                 <div class="form-group">
-                    <label class="form-label" for="optionA">Option A <span style="color:#ef4444;">*</span></label>
-                    <input class="form-control" type="text" id="optionA" name="optionA" value="${question.options[0]}" required maxlength="250">
-                </div>
-
-                <div class="form-group">
-                    <label class="form-label" for="optionB">Option B <span style="color:#ef4444;">*</span></label>
-                    <input class="form-control" type="text" id="optionB" name="optionB" value="${question.options[1]}" required maxlength="250">
-                </div>
-
-                <div class="form-group">
-                    <label class="form-label" for="optionC">Option C <span style="color:#ef4444;">*</span></label>
-                    <input class="form-control" type="text" id="optionC" name="optionC" value="${question.options[2]}" required maxlength="250">
+                    <label class="form-label" for="optA">
+                        Option A <span class="required-dot">*</span>
+                    </label>
+                    <input class="form-control" type="text" id="optA" name="optionA" value="${question.options[0]}" required maxlength="250">
                 </div>
 
                 <div class="form-group">
-                    <label class="form-label" for="optionD">Option D <span style="color:#ef4444;">*</span></label>
-                    <input class="form-control" type="text" id="optionD" name="optionD" value="${question.options[3]}" required maxlength="250">
+                    <label class="form-label" for="optB">
+                        Option B <span class="required-dot">*</span>
+                    </label>
+                    <input class="form-control" type="text" id="optB" name="optionB" value="${question.options[1]}" required maxlength="250">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="optC">
+                        Option C <span class="required-dot">*</span>
+                    </label>
+                    <input class="form-control" type="text" id="optC" name="optionC" value="${question.options[2]}" required maxlength="250">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="optD">
+                        Option D <span class="required-dot">*</span>
+                    </label>
+                    <input class="form-control" type="text" id="optD" name="optionD" value="${question.options[3]}" required maxlength="250">
                 </div>
 
                 <!-- Correct Answer -->
                 <div class="form-group">
-                    <label class="form-label" for="correctAnswer">Designated Correct Answer <span style="color:#ef4444;">*</span></label>
-                    <select class="form-control" id="correctAnswer" name="correctAnswer" required>
+                    <label class="form-label" for="correctAnswerSelect">
+                        Authoritative Correct Answer <span class="required-dot">*</span>
+                    </label>
+                    <select class="form-control" id="correctAnswerSelect" name="correctAnswer" required>
                         <option value="0" ${question.correctAnswer == 0 ? 'selected' : ''}>Option A (Index 0)</option>
                         <option value="1" ${question.correctAnswer == 1 ? 'selected' : ''}>Option B (Index 1)</option>
                         <option value="2" ${question.correctAnswer == 2 ? 'selected' : ''}>Option C (Index 2)</option>
@@ -100,32 +114,42 @@
                     </select>
                 </div>
 
-                <!-- Difficulty -->
+                <!-- Difficulty & Time Limit -->
                 <div class="form-group">
-                    <label class="form-label" for="difficulty">Difficulty Level <span style="color:#ef4444;">*</span></label>
-                    <select class="form-control" id="difficulty" name="difficulty" required>
-                        <option value="easy" ${question.difficulty == 'easy' ? 'selected' : ''}>Easy</option>
-                        <option value="medium" ${question.difficulty == 'medium' ? 'selected' : ''}>Medium</option>
-                        <option value="hard" ${question.difficulty == 'hard' ? 'selected' : ''}>Hard</option>
+                    <label class="form-label" for="difficultyInput">
+                        Difficulty Tier <span class="required-dot">*</span>
+                    </label>
+                    <select class="form-control" id="difficultyInput" name="difficulty" required>
+                        <option value="easy" ${question.difficulty == 'easy' ? 'selected' : ''}>Easy (1.0x)</option>
+                        <option value="medium" ${question.difficulty == 'medium' ? 'selected' : ''}>Medium (1.5x)</option>
+                        <option value="hard" ${question.difficulty == 'hard' ? 'selected' : ''}>Hard (2.0x)</option>
                     </select>
                 </div>
 
-                <!-- Time Limit -->
-                <div class="form-group">
-                    <label class="form-label" for="timeLimitSeconds">Time Limit (Seconds) <span style="color:#ef4444;">*</span></label>
-                    <input class="form-control" type="number" id="timeLimitSeconds" name="timeLimitSeconds" value="${question.timeLimitSeconds}" min="5" max="300" required>
+                <div class="form-group" style="grid-column: span 2;">
+                    <label class="form-label" for="timeLimitInput">
+                        Time Limit (Seconds) <span class="required-dot">*</span>
+                    </label>
+                    <input class="form-control" type="number" id="timeLimitInput" name="timeLimitSeconds" value="${question.timeLimitSeconds}" min="5" max="300" required>
                 </div>
 
                 <!-- Explanation -->
-                <div class="form-group full-width">
-                    <label class="form-label" for="explanation">Pedagogical Explanation</label>
-                    <textarea class="form-control" id="explanation" name="explanation" rows="2" maxlength="600">${question.explanation}</textarea>
+                <div class="form-group" style="grid-column: span 2;">
+                    <label class="form-label" for="explanationInput">
+                        Pedagogical Explanation
+                    </label>
+                    <textarea class="form-control" id="explanationInput" name="explanation" rows="3" maxlength="600"><c:out value="${question.explanation}" /></textarea>
                 </div>
             </div>
 
-            <div style="border-top:1px solid var(--border); padding-top:1.5rem; margin-top:1rem; display:flex; justify-content:space-between; align-items:center;">
-                <a href="${pageContext.request.contextPath}/admin/questions" class="btn btn-secondary">← Back to Questions</a>
-                <button type="submit" class="btn btn-primary">💾 Update Question in XML</button>
+            <!-- Form Action Footer -->
+            <div style="border-top: 1px solid var(--border-default); padding-top: 1.5rem; margin-top: 1rem; display: flex; justify-content: space-between; align-items: center;">
+                <a href="${pageContext.request.contextPath}/admin/questions" class="btn btn-secondary">
+                    ← Back to Questions
+                </a>
+                <button type="submit" class="btn btn-primary">
+                    <span>💾</span> Update Question in XML
+                </button>
             </div>
         </form>
     </div>
