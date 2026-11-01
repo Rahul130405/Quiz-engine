@@ -17,10 +17,11 @@ export function fisherYatesShuffle(array) {
 // ── Greedy Score Engine (stateful, client-side) ───────────────────────────────
 export class ScoreEngine {
   constructor() {
-    this.totalScore    = 0;
+    this.totalScore = 0;
     this.currentStreak = 0;
-    this.maxStreak     = 0;
+    this.maxStreak = 0;
     this.totalStreakBonus = 0;
+    this.correctCount = 0;
   }
 
   record(isCorrect, timedOut = false) {
@@ -29,32 +30,38 @@ export class ScoreEngine {
 
     if (timedOut) {
       base = 0;
-      // Streak is not broken on timeout
     } else if (isCorrect) {
-      base = 5;
+      base = 4;
+      this.correctCount += 1;
       this.currentStreak += 1;
       this.maxStreak = Math.max(this.maxStreak, this.currentStreak);
-      // Apply streak bonus
-      if      (this.currentStreak % 5 === 0) streakBonus = 5;
-      else if (this.currentStreak % 3 === 0) streakBonus = 2;
+      
+      // Apply bonus only on exact streak counts
+      if (this.currentStreak === 3) {
+        streakBonus = 1;
+      } else if (this.currentStreak === 5) {
+        streakBonus = 2;
+      }
     } else {
       base = -1;
-      this.currentStreak = 0;
+      this.currentStreak = 0; // Reset streak on wrong answer
     }
 
     const change = base + streakBonus;
-    this.totalScore       = Math.max(0, this.totalScore + change);
+    this.totalScore = Math.max(0, this.totalScore + change);
     this.totalStreakBonus += streakBonus;
 
     return { base, streakBonus, change, totalScore: this.totalScore };
   }
 
-  getState() {
+  getState(totalQuestions) {
+    const percentage = totalQuestions > 0 ? (this.correctCount / totalQuestions) * 100 : 0;
     return {
-      totalScore:       this.totalScore,
-      currentStreak:    this.currentStreak,
-      maxStreak:        this.maxStreak,
+      totalScore: this.totalScore,
+      currentStreak: this.currentStreak,
+      maxStreak: this.maxStreak,
       totalStreakBonus: this.totalStreakBonus,
+      percentage: parseFloat(percentage.toFixed(2)),
     };
   }
 }

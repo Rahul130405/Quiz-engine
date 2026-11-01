@@ -36,20 +36,17 @@ export default function QuizPage() {
     setCurrent(0);
 
     try {
-      const { data } = await api.post("/quiz/start", {
-        topicId,
-        count: DEFAULT_QUESTION_COUNT,
-      });
+      const { data } = await api.get(`/java/questions?topicId=${topicId}&count=${DEFAULT_QUESTION_COUNT}`);
 
-      setQuestions(data.questions);
-      setTopic(data.topic);
+      setQuestions(data.questions || []);
+      setTopic(data.topic || { id: topicId, name: topicId });
       
-      const limit = Math.ceil(data.questions.length / 5) * 120;
-      setTimeLeft(limit);
+      const limit = Math.ceil((data.questions || []).length / 5) * 30;
+      setTimeLeft(limit > 0 ? limit : 60);
       
       setPhase("ready");
     } catch (err) {
-      setError(err.response?.data?.error || "Failed to load quiz.");
+      setError(err.response?.data?.error || "Failed to load quiz questions from Java backend.");
       setPhase("error");
     }
   }, [topicId]);
@@ -84,7 +81,7 @@ export default function QuizPage() {
     setRevealed(true);
 
     const newAnswer = {
-      questionId: q._id,
+      questionId: q.id || q._id,
       selectedOption: optIndex,
       timedOut: false,
       timeTakenSeconds: timeTaken,
@@ -121,19 +118,21 @@ export default function QuizPage() {
     clearInterval(timerRef.current);
 
     try {
-      const limit = Math.ceil(questions.length / 5) * 120;
-      const totalTimeTaken = limit - timeLeft;
+      const limit = Math.ceil(questions.length / 5) * 30;
+      const totalTimeTaken = Math.max(0, limit - timeLeft);
 
-      const { data } = await api.post("/quiz/submit", {
+      const { data } = await api.post("/java/quiz/evaluate", {
         topicId,
         answers: finalAnswers,
         timeTakenSeconds: totalTimeTaken,
       });
 
-      updateScore(data.newTotalScore);
+      if (data.newTotalScore !== undefined) {
+        updateScore(data.newTotalScore);
+      }
       navigate("/results", { state: { result: data, topic, questions, totalTimeTaken } });
     } catch (err) {
-      setError("Failed to submit quiz.");
+      setError(err.response?.data?.error || "Failed to submit quiz for Java evaluation.");
       setPhase("question");
     }
   };
@@ -194,7 +193,7 @@ export default function QuizPage() {
   }
 
   if (phase === "ready") {
-    const limit = Math.ceil(questions.length / 5) * 120;
+    const limit = Math.ceil(questions.length / 5) * 30;
     return (
       <div className="container center" style={{ marginTop: "10rem" }}>
         <div className="card fade-in" style={{ maxWidth: 500, margin: "0 auto", padding: "3rem" }}>
@@ -275,8 +274,8 @@ export default function QuizPage() {
         <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
           {q.options.map((opt, i) => {
             const isSelected = selected === i;
-            const isCorrect  = revealed && i === q.correctAnswer;
-            const isWrong    = revealed && isSelected && !isCorrect;
+            const isCorrect  = revealed && q.correctAnswer !== undefined && i === q.correctAnswer;
+            const isWrong    = revealed && q.correctAnswer !== undefined && isSelected && !isCorrect;
 
             let borderColor = "var(--border)";
             let background = "var(--bg-3)";
@@ -290,7 +289,7 @@ export default function QuizPage() {
               borderColor = "var(--error)";
               background = "rgba(239, 68, 68, 0.1)";
               color = "var(--error)";
-            } else if (isSelected && !revealed) {
+            } else if (isSelected) {
               borderColor = "var(--accent)";
               background = "var(--accent-glow)";
             }

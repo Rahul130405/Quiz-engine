@@ -1,0 +1,85 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
+<div class="app-container">
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar">
+        <div class="brand">
+            <div class="brand-icon">⚡</div>
+            <div class="brand-details">
+                <div class="brand-title">QuizEngine</div>
+                <span class="brand-badge">ADMIN CONSOLE</span>
+            </div>
+        </div>
+
+        <ul class="nav-menu">
+            <li class="nav-item ${activeNav == 'dashboard' ? 'active' : ''}">
+                <a href="${pageContext.request.contextPath}/admin/dashboard">
+                    <span class="nav-icon">📊</span>
+                    <span>Dashboard</span>
+                </a>
+            </li>
+            <li class="nav-item ${activeNav == 'questions' ? 'active' : ''}">
+                <a href="${pageContext.request.contextPath}/admin/questions">
+                    <span class="nav-icon">❓</span>
+                    <span>Question Bank</span>
+                </a>
+            </li>
+            <li class="nav-item ${activeNav == 'create-question' ? 'active' : ''}">
+                <a href="${pageContext.request.contextPath}/admin/questions/create">
+                    <span class="nav-icon">➕</span>
+                    <span>Add Question</span>
+                </a>
+            </li>
+            <li class="nav-item ${activeNav == 'topics' ? 'active' : ''}">
+                <a href="${pageContext.request.contextPath}/admin/topics">
+                    <span class="nav-icon">📚</span>
+                    <span>Topics &amp; Graph</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="${pageContext.request.contextPath}/api/java/health" target="_blank">
+                    <span class="nav-icon">🩺</span>
+                    <span>System Health ↗</span>
+                </a>
+            </li>
+        </ul>
+
+        <div class="sidebar-footer">
+            <div class="user-profile-card">
+                <div class="user-avatar">A</div>
+                <div class="user-meta">
+                    <div class="user-label">Logged in as</div>
+                    <div class="user-identifier" title="${sessionScope.adminUser}">
+                        <c:out value="${sessionScope.adminUser != null ? sessionScope.adminUser : 'Administrator'}" />
+                    </div>
+                </div>
+            </div>
+
+            <form method="POST" action="${pageContext.request.contextPath}/admin/logout" style="margin: 0;">
+                <input type="hidden" name="csrfToken" value="${sessionScope.csrfToken}">
+                <button type="submit" class="btn btn-secondary btn-block btn-sm">
+                    <span>🚪</span> Sign Out
+                </button>
+            </form>
+        </div>
+    </aside>
+
+    <!-- Main Workspace Container -->
+    <div class="main-wrapper">
+        <header class="top-navbar">
+            <div class="page-heading-group">
+                <h1 class="page-title"><c:out value="${pageTitle != null ? pageTitle : 'Administration'}" /></h1>
+                <div class="status-pill">
+                    <span class="status-dot"></span>
+                    <span>XML Datastore Online</span>
+                </div>
+            </div>
+
+            <div class="top-navbar-actions">
+                <a href="/" target="_blank" class="btn btn-outline btn-sm">
+                    <span>🎓</span> View Student App ↗
+                </a>
+            </div>
+        </header>
+
+        <main class="main-content">

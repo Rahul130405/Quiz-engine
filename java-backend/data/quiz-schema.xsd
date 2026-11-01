@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+
+    <!-- Root Element: questions -->
+    <xs:element name="questions">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="question" type="QuestionType" minOccurs="0" maxOccurs="unbounded"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <!-- Root Element: topics -->
+    <xs:element name="topics">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="topic" type="TopicType" minOccurs="0" maxOccurs="unbounded"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <!-- Question Definition -->
+    <xs:complexType name="QuestionType">
+        <xs:sequence>
+            <xs:element name="topicId" type="xs:string"/>
+            <xs:element name="text" type="xs:string"/>
+            <xs:element name="options">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="option" type="xs:string" minOccurs="4" maxOccurs="4"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="correctAnswer">
+                <xs:simpleType>
+                    <xs:restriction base="xs:integer">
+                        <xs:minInclusive value="0"/>
+                        <xs:maxInclusive value="3"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="difficulty">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:enumeration value="easy"/>
+                        <xs:enumeration value="medium"/>
+                        <xs:enumeration value="hard"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="explanation" type="xs:string" minOccurs="0"/>
+            <xs:element name="timeLimitSeconds" type="xs:positiveInteger"/>
+        </xs:sequence>
+        <xs:attribute name="id" type="xs:string" use="required"/>
+    </xs:complexType>
+
+    <!-- Topic Definition -->
+    <xs:complexType name="TopicType">
+        <xs:sequence>
+            <xs:element name="name" type="xs:string"/>
+            <xs:element name="description" type="xs:string"/>
+            <xs:element name="icon" type="xs:string"/>
+            <xs:element name="color" type="xs:string"/>
+            <xs:element name="passingScore" type="xs:integer"/>
+            <xs:element name="order" type="xs:integer"/>
+            <xs:element name="prerequisites" minOccurs="0">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="prerequisite" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+        <xs:attribute name="id" type="xs:string" use="required"/>
+    </xs:complexType>
+
+</xs:schema>

@@ -1,7 +1,10 @@
 import axios from "axios";
 
+// Use environment variable if provided, or default to relative path '/api' to support CRA proxy & Nginx reverse proxy
+const baseURL = process.env.REACT_APP_API_URL || "/api";
+
 const api = axios.create({
-  baseURL: "http://localhost:5001/api",
+  baseURL,
   headers: { "Content-Type": "application/json" },
 });
 

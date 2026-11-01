@@ -22,7 +22,7 @@ export default function ResultsPage() {
     isNewBest
   } = result;
 
-  const questionMap = new Map((questions || []).map((q) => [q._id, q]));
+  const questionMap = new Map((questions || []).map((q) => [q._id || q.id, q]));
 
   const gradeColor = percentage >= 80 ? "var(--success)" : percentage >= 60 ? "var(--warning)" : "var(--error)";
   const gradeLabel = percentage >= 80 ? "Excellent!" : percentage >= 60 ? "Good job!" : "Keep practicing";

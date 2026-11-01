@@ -1,26 +1,40 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import api from "../utils/api";
 
 function ResetPasswordPage() {
-  const [step, setStep] = useState(1); // 1: Email, 2: New Password
+  const [step, setStep] = useState(1); // 1: Email, 2: Token & New Password
   const [email, setEmail] = useState("");
+  const [token, setToken] = useState("");
   const [form, setForm] = useState({ password: "", confirmPassword: "" });
   const [error, setError] = useState("");
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const tokenParam = params.get("token");
+    if (tokenParam) {
+      setToken(tokenParam);
+      setStep(2);
+    }
+  }, []);
+
   const handleEmailSubmit = async (e) => {
     e.preventDefault();
     setError("");
+    setMessage("");
     setLoading(true);
     try {
       const res = await api.post("/auth/forgot-password", { email });
       setMessage(res.data.message);
+      if (res.data.resetToken) {
+        setToken(res.data.resetToken);
+      }
       setStep(2);
     } catch (err) {
-      setError(err.response?.data?.error || "User not found.");
+      setError(err.response?.data?.error || "Failed to process request.");
     } finally {
       setLoading(false);
     }
@@ -29,6 +43,10 @@ function ResetPasswordPage() {
   const handleResetSubmit = async (e) => {
     e.preventDefault();
     setError("");
+    setMessage("");
+    if (!token.trim()) {
+      return setError("Password reset token is required");
+    }
     if (form.password !== form.confirmPassword) {
       return setError("Passwords do not match");
     }
@@ -38,11 +56,11 @@ function ResetPasswordPage() {
     
     setLoading(true);
     try {
-      const res = await api.post("/auth/reset-password", { email, password: form.password });
+      const res = await api.post("/auth/reset-password", { token: token.trim(), password: form.password });
       setMessage(res.data.message);
-      setTimeout(() => navigate("/login"), 3000);
+      setTimeout(() => navigate("/login"), 2500);
     } catch (err) {
-      setError(err.response?.data?.error || "Failed to reset password.");
+      setError(err.response?.data?.error || "Failed to reset password. The token may be invalid or expired.");
     } finally {
       setLoading(false);
     }
@@ -57,9 +75,9 @@ function ResetPasswordPage() {
             {step === 1 ? "Forgot Password" : "Reset Password"}
           </h1>
           <p style={{ color: "var(--text-2)", fontSize: "0.9rem" }}>
-            {step === 1 
-              ? "Enter your email to find your account" 
-              : "Set a new password for your account"}
+            {step === 1
+              ? "Enter your email to receive a password reset token"
+              : "Enter your reset token and new password"}
           </p>
         </div>
 
@@ -97,11 +115,22 @@ function ResetPasswordPage() {
               />
             </div>
             <button type="submit" className="btn btn-primary" disabled={loading} style={{ padding: "0.85rem" }}>
-              {loading ? "Verifying..." : "Verify Email"}
+              {loading ? "Processing..." : "Generate Reset Token"}
             </button>
           </form>
         ) : (
           <form onSubmit={handleResetSubmit} style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
+            <div className="form-group">
+              <label className="form-label">Reset Token</label>
+              <input
+                className="form-input"
+                type="text"
+                placeholder="Paste your reset token"
+                value={token}
+                onChange={(e) => setToken(e.target.value)}
+                required
+              />
+            </div>
             <div className="form-group">
               <label className="form-label">New Password</label>
               <input

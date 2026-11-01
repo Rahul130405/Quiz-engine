@@ -1,3 +1,4 @@
+const mongoose = require("mongoose");
 const User = require("../models/User");
 const QuizAttempt = require("../models/QuizAttempt");
 const { sortLeaderboard } = require("../algorithms/sorting");
@@ -35,9 +36,13 @@ const getTopicLeaderboard = async (req, res) => {
     const { topicId } = req.params;
     const limit = parseInt(req.query.limit) || 20;
 
+    if (!topicId || !mongoose.Types.ObjectId.isValid(topicId)) {
+      return res.status(400).json({ error: "Invalid topic ID format" });
+    }
+
     // Aggregate best attempt per user for this topic
     const results = await QuizAttempt.aggregate([
-      { $match: { topicId: require("mongoose").Types.ObjectId(topicId) } },
+      { $match: { topicId: new mongoose.Types.ObjectId(topicId) } },
       { $sort: { score: -1 } },
       {
         $group: {

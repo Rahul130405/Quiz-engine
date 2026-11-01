@@ -1,37 +1,123 @@
-version: "3.9"
-
 services:
+  # 1. MongoDB Database Service
   mongo:
     image: mongo:7
+    container_name: quizengine-mongo
     restart: unless-stopped
     volumes:
       - mongo_data:/data/db
     ports:
-      - "27017:27017"
+      - "127.0.0.1:27017:27017"
     environment:
       MONGO_INITDB_DATABASE: quizengine
+    healthcheck:
+      test: ["CMD", "mongosh", "--eval", "db.adminCommand('ping')"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+    networks:
+      - quizengine_net
+    deploy:
+      resources:
+        limits:
+          memory: 512M
 
+  # 2. Node.js Authoritative Backend Service (Auth, Users, Leaderboard, History)
   backend:
     build: ./backend
+    container_name: quizengine-node-backend
     restart: unless-stopped
     depends_on:
-      - mongo
+      mongo:
+        condition: service_healthy
     environment:
-      PORT:          5000
-      MONGODB_URI:   mongodb://mongo:27017/quizengine
-      JWT_SECRET:    change_this_in_production_please
+      PORT: 5000
+      MONGODB_URI: mongodb://mongo:27017/quizengine
+      JWT_SECRET: ${JWT_SECRET:-your_super_secret_jwt_key_change_this_in_production}
       JWT_EXPIRES_IN: 7d
-      NODE_ENV:      production
+      INTERNAL_SERVICE_SECRET: ${INTERNAL_SERVICE_SECRET:-your_super_secret_jwt_key_change_this_in_production}
+      ADMIN_REGISTRATION_SECRET: ${ADMIN_REGISTRATION_SECRET:-quizengine-dev-admin-secret}
+      NODE_ENV: production
     ports:
-      - "5000:5000"
+      - "127.0.0.1:5000:5000"
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:5000/api/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+    networks:
+      - quizengine_net
+    deploy:
+      resources:
+        limits:
+          memory: 512M
 
+  # 3. Java Servlet Backend & JSP Admin Service (XML Datastore, Evaluation Engine, Admin Portal)
+  java-backend:
+    build: ./java-backend
+    container_name: quizengine-java-backend
+    restart: unless-stopped
+    depends_on:
+      backend:
+        condition: service_healthy
+    environment:
+      JAVA_PORT: 8088
+      JWT_SECRET: ${JWT_SECRET:-your_super_secret_jwt_key_change_this_in_production}
+      INTERNAL_SERVICE_SECRET: ${INTERNAL_SERVICE_SECRET:-your_super_secret_jwt_key_change_this_in_production}
+      NODE_API_URL: http://backend:5000/api
+      NODE_AUTH_URL: http://backend:5000/api/auth/login
+      QUIZ_DATA_DIR: /app/data
+      WEBAPP_DIR: /app/src/main/webapp
+    volumes:
+      - xml_data:/app/data
+    ports:
+      - "127.0.0.1:8088:8088"
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:8088/api/java/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 15s
+    networks:
+      - quizengine_net
+    deploy:
+      resources:
+        limits:
+          memory: 768M
+
+  # 4. Frontend & Reverse Proxy (React SPA served by Nginx + unified API routing)
   frontend:
     build: ./frontend
+    container_name: quizengine-frontend
     restart: unless-stopped
     depends_on:
-      - backend
+      backend:
+        condition: service_healthy
+      java-backend:
+        condition: service_healthy
     ports:
       - "3000:80"
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://127.0.0.1:80/"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+      start_period: 5s
+    networks:
+      - quizengine_net
+    deploy:
+      resources:
+        limits:
+          memory: 256M
+
+networks:
+  quizengine_net:
+    driver: bridge
 
 volumes:
   mongo_data:
+    driver: local
+  xml_data:
+    driver: local

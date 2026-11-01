@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
+const crypto = require("crypto");
 
 /**
  * User Schema
@@ -26,6 +27,14 @@ const userSchema = new mongoose.Schema(
       required: [true, "Password is required"],
       minlength: 6,
       select: false, // Never returned by default in queries
+    },
+    resetPasswordToken: {
+      type: String,
+      select: false,
+    },
+    resetPasswordExpires: {
+      type: Date,
+      select: false,
     },
     totalScore: {
       type: Number,
@@ -66,6 +75,14 @@ userSchema.methods.comparePassword = async function (candidatePassword) {
   return bcrypt.compare(candidatePassword, this.password);
 };
 
+// ─── Instance method: Generate and hash password reset token ───────────────────
+userSchema.methods.createPasswordResetToken = function () {
+  const resetToken = crypto.randomBytes(32).toString("hex");
+  this.resetPasswordToken = crypto.createHash("sha256").update(resetToken).digest("hex");
+  this.resetPasswordExpires = new Date(Date.now() + 15 * 60 * 1000); // 15 minutes
+  return resetToken;
+};
+
 // ─── Instance method: Update topic progress ───────────────────────────────────
 userSchema.methods.updateTopicProgress = function (topicId, score, passed) {
   const existing = this.progress.get(topicId) || { completed: false, bestScore: 0, attempts: 0 };
@@ -74,6 +91,18 @@ userSchema.methods.updateTopicProgress = function (topicId, score, passed) {
     bestScore: Math.max(existing.bestScore, score),
     attempts: existing.attempts + 1,
   });
+};
+
+// ─── Instance method: Recalculate total score from best scores ────────────────
+userSchema.methods.recalculateTotalScore = function () {
+  let total = 0;
+  if (this.progress && this.progress instanceof Map) {
+    for (const [_, item] of this.progress) {
+      total += item.bestScore || 0;
+    }
+  }
+  this.totalScore = total;
+  return total;
 };
 
 module.exports = mongoose.model("User", userSchema);

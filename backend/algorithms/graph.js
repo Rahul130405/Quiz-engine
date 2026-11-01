@@ -16,14 +16,39 @@
 /**
  * Check whether a single topic is unlocked for a user.
  *
+ * A topic is unlocked if:
+ * 1. It has no prerequisites, OR
+ * 2. Every prerequisite topic has been completed (completed: true) in the user's progress.
+ *
  * @param {string}     topicId      - ID of topic to check
  * @param {string[]}   prereqIds    - IDs of prerequisite topics
  * @param {Map|object} userProgress - Map of topicId → { completed }
  * @returns {boolean}
  */
 function isTopicUnlocked(topicId, prereqIds, userProgress) {
-  // All topics are now unlocked by default
-  return true;
+  if (!prereqIds || prereqIds.length === 0) {
+    return true;
+  }
+  if (!userProgress) {
+    return false;
+  }
+
+  return prereqIds.every((prereq) => {
+    const pid = typeof prereq === "object" && prereq !== null && prereq._id
+      ? prereq._id.toString()
+      : prereq.toString();
+
+    let entry = null;
+    if (userProgress instanceof Map) {
+      entry = userProgress.get(pid);
+    } else if (typeof userProgress.get === "function") {
+      entry = userProgress.get(pid);
+    } else if (typeof userProgress === "object" && userProgress !== null) {
+      entry = userProgress[pid];
+    }
+
+    return Boolean(entry && entry.completed);
+  });
 }
 
 /**
@@ -107,7 +132,9 @@ function topologicalSort(topics) {
  */
 function getTopicsWithStatus(topics, userProgress) {
   return topics.map((topic) => {
-    const prereqIds = (topic.prerequisites || []).map((p) => p.toString());
+    const prereqIds = (topic.prerequisites || []).map((p) =>
+      p && typeof p === "object" && p._id ? p._id.toString() : p.toString()
+    );
     const unlocked = isTopicUnlocked(topic._id.toString(), prereqIds, userProgress);
     const progressEntry = userProgress instanceof Map
       ? userProgress.get(topic._id.toString())
