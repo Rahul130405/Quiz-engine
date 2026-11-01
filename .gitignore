@@ -7,11 +7,18 @@ frontend/node_modules/
 .env
 backend/.env
 frontend/.env
+java-backend/.env
+*.env.local
 
-# Production Build
+# Production Build & Runtime Temp
 dist/
 build/
 frontend/build/
+target/
+java-backend/target/
+temp-tomcat/
+java-backend/temp-tomcat/
+*.class
 
 # IDE/System files
 .DS_Store

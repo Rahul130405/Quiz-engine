@@ -13,13 +13,14 @@ export default function TopicGraph({ topics, onTopicClick }) {
   const [dragStart, setDragStart] = useState({ x: 0, y: 0 });
 
   // Build a map from id → topic for quick lookup
-  const topicMap = new Map(topics.map((t) => [t._id, t]));
+  const topicMap = new Map(topics.map((t) => [t._id || t.id, t]));
 
   // Collect all directed edges: { from: topic, to: topic }
   const edges = [];
   topics.forEach((topic) => {
     (topic.prerequisites || []).forEach((prereq) => {
-      const fromTopic = topicMap.get(prereq._id || prereq);
+      const pId = prereq && typeof prereq === "object" ? (prereq._id || prereq.id) : prereq;
+      const fromTopic = topicMap.get(pId);
       if (fromTopic) edges.push({ from: fromTopic, to: topic });
     });
   });
@@ -139,7 +140,7 @@ export default function TopicGraph({ topics, onTopicClick }) {
 
             return (
               <g
-                key={_id}
+                key={_id || topic.id}
                 className="topic-node"
                 transform={`translate(${x}, ${y})`}
                 style={{ cursor: unlocked ? "pointer" : "not-allowed" }}

@@ -12,10 +12,10 @@ export default function TopicsPage() {
 
   const fetchTopics = useCallback(async () => {
     try {
-      const { data } = await api.get("/topics");
-      setTopics(data.topics);
+      const { data } = await api.get("/java/topics");
+      setTopics(data.topics || data);
     } catch (err) {
-      console.error("Failed to load topics:", err);
+      console.error("Failed to load topics from Java XML backend:", err);
     } finally {
       setLoading(false);
     }
@@ -25,7 +25,8 @@ export default function TopicsPage() {
 
   const handleStart = (topic) => {
     if (!topic.unlocked) return;
-    navigate(`/quiz/${topic._id}`, { state: { topic } });
+    const tId = topic.id || topic._id;
+    navigate(`/quiz/${tId}`, { state: { topic } });
   };
 
   if (loading) return <div className="spinner" />;

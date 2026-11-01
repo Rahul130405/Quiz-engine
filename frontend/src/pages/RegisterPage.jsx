@@ -1,11 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 
 export default function RegisterPage() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [strength, setStrength] = useState(0);
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+  const { register } = useAuth();
   const navigate = useNavigate();
 
   // Password strength logic
@@ -40,27 +44,15 @@ export default function RegisterPage() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setError("");
+    setLoading(true);
     try {
-      const res = await fetch("http://localhost:5001/api/auth/register", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ name, email, password }),
-      });
-
-      const data = await res.json();
-      if (!res.ok) {
-        alert(data.error || "Registration failed");
-        return;
-      }
-      if (data.token) {
-        localStorage.setItem("token", data.token);
-        navigate("/topics"); // Standard flow after register
-      }
+      await register(name, email, password);
+      navigate("/topics");
     } catch (err) {
-      console.error(err);
-      alert("Something went wrong");
+      setError(err.response?.data?.error || "Registration failed. Please try again.");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -227,6 +219,21 @@ export default function RegisterPage() {
         <h2 className="heading">Create account</h2>
         <p className="subtitle">Join and start learning today</p>
 
+        {error && (
+          <div style={{
+            background: "rgba(239, 68, 68, 0.1)",
+            border: "1px solid rgba(239, 68, 68, 0.3)",
+            borderRadius: "8px",
+            padding: "0.75rem 1rem",
+            color: "#ef4444",
+            fontSize: "0.88rem",
+            marginBottom: "1.25rem",
+            textAlign: "center"
+          }}>
+            {error}
+          </div>
+        )}
+
         <form onSubmit={handleSubmit}>
           <div className="form-group">
             <div className="input-icon">
@@ -279,8 +286,8 @@ export default function RegisterPage() {
             </div>
           </div>
 
-          <button className="submit-btn" type="submit">
-            Create account →
+          <button className="submit-btn" type="submit" disabled={loading}>
+            {loading ? "Creating account..." : "Create account →"}
           </button>
         </form>
 

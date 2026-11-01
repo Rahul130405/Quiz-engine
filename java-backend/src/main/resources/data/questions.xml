@@ -1,0 +1,843 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<questions>
+    <question id="q-java-12">
+        <topicId>topic-java</topicId>
+        <text>Which method starts a thread?</text>
+        <options>
+            <option>run()</option>
+            <option>start()</option>
+            <option>execute()</option>
+            <option>init()</option>
+        </options>
+        <correctAnswer>1</correctAnswer>
+        <difficulty>easy</difficulty>
+        <explanation/>
+        <timeLimitSeconds>25</timeLimitSeconds>
+    </question>
+    <question id="q-java-13">
+        <topicId>topic-java</topicId>
+        <text>Which interface is implemented to create a thread?</text>
+        <options>
+            <option>Runnable</option>
+            <option>Serializable</option>
+            <option>Cloneable</option>
+            <option>Comparable</option>
+        </options>
+        <correctAnswer>0</correctAnswer>
+        <difficulty>easy</difficulty>
+        <explanation/>
+        <timeLimitSeconds>25</timeLimitSeconds>
+    </question>
+    <question id="q-java-14">
+        <topicId>topic-java</topicId>
+        <text>Which method is used to pause a thread?</text>
+        <options>
+            <option>sleep()</option>
+            <option>wait()</option>
+            <option>stop()</option>
+            <option>suspend()</option>
+        </options>
+        <correctAnswer>0</correctAnswer>
+        <difficulty>medium</difficulty>
+        <explanation/>
+        <timeLimitSeconds>25</timeLimitSeconds>
+    </question>
+    <question id="q-java-15">
+        <topicId>topic-java</topicId>
+        <text>Which method is used for inter-thread communication?</text>
+        <options>
+            <option>sleep()</option>
+            <option>notify()</option>
+            <option>run()</option>
+            <option>start()</option>
+        </options>
+        <correctAnswer>1</correctAnswer>
+        <difficulty>medium</difficulty>
+        <explanation/>
+        <timeLimitSeconds>25</timeLimitSeconds>
+    </question>
+    <question id="q-java-16">
+        <topicId>topic-java</topicId>
+        <text>Which method is used to wait for a thread to finish?</text>
+        <options>
+            <option>sleep()</option>
+            <option>join()</option>
+            <option>wait()</option>
+            <option>yield()</option>
+        </options>
+        <correctAnswer>1</correctAnswer>
+        <difficulty>medium</difficulty>
+        <explanation/>
+        <timeLimitSeconds>25</timeLimitSeconds>
+    </question>
+    <question id="q-java-17">
+        <topicId>topic-java</topicId>
+        <text>Which method is used to stop a thread (deprecated)?</text>
+        <options>
+            <option>stop()</option>
+            <option>end()</option>
+            <option>destroy()</option>
+            <option>finish()</option>
+        </options>
+        <correctAnswer>0</correctAnswer>
+        <difficulty>medium</difficulty>
+        <explanation/>
+        <timeLimitSeconds>25</timeLimitSeconds>
+    </question>
+    <question id="q-daa-20">
+        <topicId>topic-daa</topicId>
+        <text>What is the purpose of hashing?</text>
+        <options>
+            <option>Sorting</option>
+            <option>Searching efficiently</option>
+            <option>Graph traversal</option>
+            <option>Recursion</option>
+        </options>
+        <correctAnswer>1</correctAnswer>
+        <difficulty>easy</difficulty>
+        <explanation>Hashing provides O(1) average-case time for searching.</explanation>
+        <timeLimitSeconds>20</timeLimitSeconds>
+    </question>
+    <question id="q-java-18">
+        <topicId>topic-java</topicId>
+        <text>Which package is used for database connectivity?</text>
+        <options>
+            <option>java.io</option>
+            <option>java.sql</option>
+            <option>java.util</option>
+            <option>java.lang</option>
+        </options>
+        <correctAnswer>1</correctAnswer>
+        <difficulty>easy</difficulty>
+        <explanation/>
+        <timeLimitSeconds>25</timeLimitSeconds>
+    </question>
+    <question id="q-java-19">
+        <topicId>topic-java</topicId>
+        <text>Which class is used for buffered input?</text>
+        <options>
+            <option>BufferedReader</option>
+            <option>FileReader</option>
+            <option>Scanner</option>
+            <option>InputStream</option>
+        </options>
+        <correctAnswer>0</correctAnswer>
+        <difficulty>easy</difficulty>
+        <explanation/>
+        <timeLimitSeconds>25</timeLimitSeconds>
+    </question>
+    <question id="q-java-10">
+        <topicId>topic-java</topicId>
+        <text>Which exception occurs when dividing by zero?</text>
+        <options>
+            <option>IOException</option>
+            <option>ArithmeticException</option>
+            <option>NullPointerException</option>
+            <option>ArrayIndexOutOfBoundsException</option>
+        </options>
+        <correctAnswer>1</correctAnswer>
+        <difficulty>easy</difficulty>
+        <explanation/>
+        <timeLimitSeconds>25</timeLimitSeconds>
+    </question>
+    <question id="q-java-11">
+        <topicId>topic-java</topicId>
+        <text>Which class is used to create user-defined exceptions?</text>
+        <options>
+            <option>Exception</option>
+            <option>Error</option>
+            <option>Throwable</option>
+            <option>Runtime</option>
+        </options>
+        <correctAnswer>0</correctAnswer>
+        <difficulty>medium</difficulty>
+        <explanation>Custom exceptions extend Exception class.</explanation>
+        <timeLimitSeconds>25</timeLimitSeconds>
+    </question>
+    <question id="q-html-20">
+        <topicId>topic-html</topicId>
+        <text>Which HTML attribute specifies that an input field must be filled out before submitting a form?</text>
+        <options>
+            <option>placeholder</option>
+            <option>required</option>
+            <option>validate</option>
+            <option>mandatory</option>
+        </options>
+        <correctAnswer>1</correctAnswer>
+        <difficulty>medium</difficulty>
+        <explanation>The required attribute is a boolean attribute added directly to an input element. It prevents form submission if the field is left empty, and works on input, textarea, and select elements without any JavaScript needed.</explanation>
+        <timeLimitSeconds>25</timeLimitSeconds>
+    </question>
+    <question id="q-java-20">
+        <topicId>topic-java</topicId>
+        <text>Which concept ensures only one thread accesses a resource at a time?</text>
+        <options>
+            <option>Inheritance</option>
+            <option>Polymorphism</option>
+            <option>Synchronization</option>
+            <option>Encapsulation</option>
+        </options>
+        <correctAnswer>2</correctAnswer>
+        <difficulty>medium</difficulty>
+        <explanation/>
+        <timeLimitSeconds>25</timeLimitSeconds>
+    </question>
+    <question id="q-daa-02">
+        <topicId>topic-daa</topicId>
+        <text>Which algorithm is used to find the minimum spanning tree?</text>
+        <options>
+            <option>Dijkstra</option>
+            <option>Prim’s Algorithm</option>
+            <option>Bellman-Ford</option>
+            <option>Floyd-Warshall</option>
+        </options>
+        <correctAnswer>1</correctAnswer>
+        <difficulty>easy</difficulty>
+        <explanation>Prim’s is a greedy algorithm for MST.</explanation>
+        <timeLimitSeconds>20</timeLimitSeconds>
+    </question>
+    <question id="q-daa-01">
+        <topicId>topic-daa</topicId>
+        <text>What is the time complexity of Binary Search in the worst case?</text>
+        <options>
+            <option>O(n)</option>
+            <option>O(log n)</option>
+            <option>O(n log n)</option>
+            <option>O(1)</option>
+        </options>
+        <correctAnswer>1</correctAnswer>
+        <difficulty>easy</difficulty>
+        <explanation>Binary search halves the search space each time → O(log n).</explanation>
+        <timeLimitSeconds>20</timeLimitSeconds>
+    </question>
+    <question id="q-daa-08">
+        <topicId>topic-daa</topicId>
+        <text>What is the time complexity of Merge Sort?</text>
+        <options>
+            <option>O(n²)</option>
+            <option>O(n log n)</option>
+            <option>O(log n)</option>
+            <option>O(n)</option>
+        </options>
+        <correctAnswer>1</correctAnswer>
+        <difficulty>easy</difficulty>
+        <explanation>Merge sort always takes O(n log n) because it always divides and merges.</explanation>
+        <timeLimitSeconds>25</timeLimitSeconds>
+    </question>
+    <question id="q-daa-07">
+        <topicId>topic-daa</topicId>
+        <text>Which algorithm is used for string matching?</text>
+        <options>
+            <option>Kruskal</option>
+            <option>Rabin-Karp</option>
+            <option>Prim</option>
+            <option>Dijkstra</option>
+        </options>
+        <correctAnswer>1</correctAnswer>
+        <difficulty>easy</difficulty>
+        <explanation>Rabin-Karp uses hashing to find a pattern in text.</explanation>
+        <timeLimitSeconds>25</timeLimitSeconds>
+    </question>
+    <question id="q-daa-09">
+        <topicId>topic-daa</topicId>
+        <text>Which algorithm uses dynamic programming?</text>
+        <options>
+            <option>Binary Search</option>
+            <option>Fibonacci (DP approach)</option>
+            <option>BFS</option>
+            <option>DFS</option>
+        </options>
+        <correctAnswer>1</correctAnswer>
+        <difficulty>medium</difficulty>
+        <explanation>Fibonacci with memoization or tabulation is a classic DP example.</explanation>
+        <timeLimitSeconds>25</timeLimitSeconds>
+    </question>
+    <question id="q-daa-04">
+        <topicId>topic-daa</topicId>
+        <text>Which data structure is used in BFS?</text>
+        <options>
+            <option>Stack</option>
+            <option>Queue</option>
+            <option>Heap</option>
+            <option>Tree</option>
+        </options>
+        <correctAnswer>1</correctAnswer>
+        <difficulty>easy</difficulty>
+        <explanation>BFS uses a queue (FIFO).</explanation>
+        <timeLimitSeconds>20</timeLimitSeconds>
+    </question>
+    <question id="q-daa-03">
+        <topicId>topic-daa</topicId>
+        <text>What is the worst-case time complexity of Quick Sort?</text>
+        <options>
+            <option>O(n log n)</option>
+            <option>O(n²)</option>
+            <option>O(log n)</option>
+            <option>O(n)</option>
+        </options>
+        <correctAnswer>1</correctAnswer>
+        <difficulty>medium</difficulty>
+        <explanation>Worst case occurs when pivot is poorly chosen.</explanation>
+        <timeLimitSeconds>30</timeLimitSeconds>
+    </question>
+    <question id="q-daa-06">
+        <topicId>topic-daa</topicId>
+        <text>Which method is used to solve recurrence relations?</text>
+        <options>
+            <option>Greedy method</option>
+            <option>Master theorem</option>
+            <option>Backtracking</option>
+            <option>Branch and Bound</option>
+        </options>
+        <correctAnswer>1</correctAnswer>
+        <difficulty>medium</difficulty>
+        <explanation>Master theorem is a formulaic way to solve divide-and-conquer recurrences.</explanation>
+        <timeLimitSeconds>30</timeLimitSeconds>
+    </question>
+    <question id="q-daa-05">
+        <topicId>topic-daa</topicId>
+        <text>Which algorithm solves the single-source shortest path problem?</text>
+        <options>
+            <option>Kruskal</option>
+            <option>Prim</option>
+            <option>Dijkstra</option>
+            <option>DFS</option>
+        </options>
+        <correctAnswer>2</correctAnswer>
+        <difficulty>easy</difficulty>
+        <explanation>Dijkstra's algorithm finds the shortest path from a source to all other nodes.</explanation>
+        <timeLimitSeconds>25</timeLimitSeconds>
+    </question>
+    <question id="q-html-10">
+        <topicId>topic-html</topicId>
+        <text>Which HTML element is used to define a table row?</text>
+        <options>
+            <option>&lt;td&gt;</option>
+            <option>&lt;th&gt;</option>
+            <option>&lt;tr&gt;</option>
+            <option>&lt;row&gt;</option>
+        </options>
+        <correctAnswer>2</correctAnswer>
+        <difficulty>medium</difficulty>
+        <explanation>&lt;tr&gt; defines a table row. &lt;td&gt; defines a table data cell, and &lt;th&gt; defines a table header cell — both go inside &lt;tr&gt;.</explanation>
+        <timeLimitSeconds>25</timeLimitSeconds>
+    </question>
+    <question id="q-html-12">
+        <topicId>topic-html</topicId>
+        <text>Which HTML tag is used to define a block of navigation links?</text>
+        <options>
+            <option>&lt;section&gt;</option>
+            <option>&lt;nav&gt;</option>
+            <option>&lt;aside&gt;</option>
+            <option>&lt;menu&gt;</option>
+        </options>
+        <correctAnswer>1</correctAnswer>
+        <difficulty>medium</difficulty>
+        <explanation>The &lt;nav&gt; semantic element is used to wrap a set of navigation links. It helps search engines and screen readers identify the navigation area.</explanation>
+        <timeLimitSeconds>25</timeLimitSeconds>
+    </question>
+    <question id="q-html-11">
+        <topicId>topic-html</topicId>
+        <text>What does the 'alt' attribute in an &lt;img&gt; tag do?</text>
+        <options>
+            <option>Sets image alignment</option>
+            <option>Adds a tooltip on hover</option>
+            <option>Provides alternative text if image fails to load</option>
+            <option>Sets the image file path</option>
+        </options>
+        <correctAnswer>2</correctAnswer>
+        <difficulty>medium</difficulty>
+        <explanation>The 'alt' attribute provides alternative text for an image. It displays if the image can't load and improves accessibility for screen readers.</explanation>
+        <timeLimitSeconds>25</timeLimitSeconds>
+    </question>
+    <question id="q-html-18">
+        <topicId>topic-html</topicId>
+        <text>Which HTML attribute is used to provide a hint to the user about what to enter in an input field?</text>
+        <options>
+            <option>value</option>
+            <option>hint</option>
+            <option>placeholder</option>
+            <option>label</option>
+        </options>
+        <correctAnswer>2</correctAnswer>
+        <difficulty>easy</difficulty>
+        <explanation>The 'placeholder' attribute specifies a short hint that describes the expected value of an input field.</explanation>
+        <timeLimitSeconds>20</timeLimitSeconds>
+    </question>
+    <question id="q-html-17">
+        <topicId>topic-html</topicId>
+        <text>What is the purpose of the &lt;meta charset='UTF-8'&gt; tag?</text>
+        <options>
+            <option>To set the page title</option>
+            <option>To specify the character encoding for the HTML document</option>
+            <option>To link an external CSS file</option>
+            <option>To define the viewport width</option>
+        </options>
+        <correctAnswer>1</correctAnswer>
+        <difficulty>medium</difficulty>
+        <explanation>The charset attribute specifies the character encoding for the HTML document. UTF-8 is the standard character encoding for the Web.</explanation>
+        <timeLimitSeconds>25</timeLimitSeconds>
+    </question>
+    <question id="q-html-19">
+        <topicId>topic-html</topicId>
+        <text>Which element is used to group several controls as well as labels within a web form?</text>
+        <options>
+            <option>&lt;group&gt;</option>
+            <option>&lt;fieldset&gt;</option>
+            <option>&lt;optgroup&gt;</option>
+            <option>&lt;formgroup&gt;</option>
+        </options>
+        <correctAnswer>1</correctAnswer>
+        <difficulty>hard</difficulty>
+        <explanation>The &lt;fieldset&gt; element is used to group related elements in a form, often used with the &lt;legend&gt; element to provide a caption for the group.</explanation>
+        <timeLimitSeconds>30</timeLimitSeconds>
+    </question>
+    <question id="q-html-14">
+        <topicId>topic-html</topicId>
+        <text>Which HTML5 element is used to draw graphics via JavaScript?</text>
+        <options>
+            <option>&lt;draw&gt;</option>
+            <option>&lt;svg&gt;</option>
+            <option>&lt;canvas&gt;</option>
+            <option>&lt;graphic&gt;</option>
+        </options>
+        <correctAnswer>2</correctAnswer>
+        <difficulty>hard</difficulty>
+        <explanation>The &lt;canvas&gt; element provides a drawing surface for JavaScript-based graphics like charts, animations, and games. &lt;svg&gt; is for vector graphics but uses XML, not JS directly.</explanation>
+        <timeLimitSeconds>30</timeLimitSeconds>
+    </question>
+    <question id="q-html-13">
+        <topicId>topic-html</topicId>
+        <text>What is the purpose of the 'defer' attribute in a &lt;script&gt; tag?</text>
+        <options>
+            <option>Loads the script from a CDN</option>
+            <option>Prevents the script from running</option>
+            <option>Executes the script after the HTML document is fully parsed</option>
+            <option>Loads the script asynchronously and runs it immediately</option>
+        </options>
+        <correctAnswer>2</correctAnswer>
+        <difficulty>hard</difficulty>
+        <explanation>'defer' tells the browser to download the script in the background but only execute it after the HTML is fully parsed. This avoids blocking page rendering.</explanation>
+        <timeLimitSeconds>30</timeLimitSeconds>
+    </question>
+    <question id="q-html-16">
+        <topicId>topic-html</topicId>
+        <text>Which HTML5 element is used to specify a footer for a document or section?</text>
+        <options>
+            <option>&lt;bottom&gt;</option>
+            <option>&lt;section-footer&gt;</option>
+            <option>&lt;footer&gt;</option>
+            <option>&lt;end&gt;</option>
+        </options>
+        <correctAnswer>2</correctAnswer>
+        <difficulty>easy</difficulty>
+        <explanation>The &lt;footer&gt; element defines a footer for a document or section, typically containing author information, copyright data, or links to related documents.</explanation>
+        <timeLimitSeconds>20</timeLimitSeconds>
+    </question>
+    <question id="q-html-15">
+        <topicId>topic-html</topicId>
+        <text>What is the difference between 'id' and 'class' attributes in HTML?</text>
+        <options>
+            <option>id can be reused; class must be unique</option>
+            <option>id must be unique per page; class can be shared by multiple elements</option>
+            <option>Both must be unique per page</option>
+            <option>There is no difference — they are interchangeable</option>
+        </options>
+        <correctAnswer>1</correctAnswer>
+        <difficulty>hard</difficulty>
+        <explanation>An 'id' must be unique within a page — only one element can have a given id. A 'class' can be applied to multiple elements, making it ideal for shared styles or behaviors.</explanation>
+        <timeLimitSeconds>30</timeLimitSeconds>
+    </question>
+    <question id="q-daa-11">
+        <topicId>topic-daa</topicId>
+        <text>What is the best case complexity of Quick Sort?</text>
+        <options>
+            <option>O(n²)</option>
+            <option>O(n log n)</option>
+            <option>O(n)</option>
+            <option>O(log n)</option>
+        </options>
+        <correctAnswer>1</correctAnswer>
+        <difficulty>medium</difficulty>
+        <explanation>Best case occurs when the pivot always divides the array into two equal halves.</explanation>
+        <timeLimitSeconds>30</timeLimitSeconds>
+    </question>
+    <question id="q-java-01">
+        <topicId>topic-java</topicId>
+        <text>Which package is automatically imported in every Java program?</text>
+        <options>
+            <option>java.util</option>
+            <option>java.io</option>
+            <option>java.lang</option>
+            <option>java.awt</option>
+        </options>
+        <correctAnswer>2</correctAnswer>
+        <difficulty>easy</difficulty>
+        <explanation>java.lang is imported by default.</explanation>
+        <timeLimitSeconds>25</timeLimitSeconds>
+    </question>
+    <question id="q-daa-10">
+        <topicId>topic-daa</topicId>
+        <text>Which problem is solved using backtracking?</text>
+        <options>
+            <option>Dijkstra</option>
+            <option>N-Queen Problem</option>
+            <option>Prim</option>
+            <option>Kruskal</option>
+        </options>
+        <correctAnswer>1</correctAnswer>
+        <difficulty>medium</difficulty>
+        <explanation>N-Queen explores all possible placements and backtracks on failure.</explanation>
+        <timeLimitSeconds>30</timeLimitSeconds>
+    </question>
+    <question id="q-java-02">
+        <topicId>topic-java</topicId>
+        <text>Which class is used for reading data from a file in Java?</text>
+        <options>
+            <option>FileReader</option>
+            <option>Scanner</option>
+            <option>InputStream</option>
+            <option>Console</option>
+        </options>
+        <correctAnswer>0</correctAnswer>
+        <difficulty>easy</difficulty>
+        <explanation/>
+        <timeLimitSeconds>25</timeLimitSeconds>
+    </question>
+    <question id="q-daa-13">
+        <topicId>topic-daa</topicId>
+        <text>Which technique is used in Huffman Coding?</text>
+        <options>
+            <option>Divide and Conquer</option>
+            <option>Greedy</option>
+            <option>Backtracking</option>
+            <option>Dynamic Programming</option>
+        </options>
+        <correctAnswer>1</correctAnswer>
+        <difficulty>easy</difficulty>
+        <explanation>Huffman coding uses a greedy strategy to build an optimal prefix tree.</explanation>
+        <timeLimitSeconds>25</timeLimitSeconds>
+    </question>
+    <question id="q-java-03">
+        <topicId>topic-java</topicId>
+        <text>Which package contains classes for input and output operations?</text>
+        <options>
+            <option>java.util</option>
+            <option>java.io</option>
+            <option>java.lang</option>
+            <option>java.sql</option>
+        </options>
+        <correctAnswer>1</correctAnswer>
+        <difficulty>easy</difficulty>
+        <explanation/>
+        <timeLimitSeconds>25</timeLimitSeconds>
+    </question>
+    <question id="q-daa-12">
+        <topicId>topic-daa</topicId>
+        <text>Which algorithm is used for all-pairs shortest path?</text>
+        <options>
+            <option>Dijkstra</option>
+            <option>Bellman-Ford</option>
+            <option>Floyd-Warshall</option>
+            <option>Prim</option>
+        </options>
+        <correctAnswer>2</correctAnswer>
+        <difficulty>medium</difficulty>
+        <explanation>Floyd-Warshall is a DP algorithm for all-pairs shortest path.</explanation>
+        <timeLimitSeconds>30</timeLimitSeconds>
+    </question>
+    <question id="q-java-04">
+        <topicId>topic-java</topicId>
+        <text>Which keyword is used to define a package in Java?</text>
+        <options>
+            <option>import</option>
+            <option>package</option>
+            <option>class</option>
+            <option>extends</option>
+        </options>
+        <correctAnswer>1</correctAnswer>
+        <difficulty>easy</difficulty>
+        <explanation/>
+        <timeLimitSeconds>25</timeLimitSeconds>
+    </question>
+    <question id="q-java-05">
+        <topicId>topic-java</topicId>
+        <text>Which method is used to write data into a file?</text>
+        <options>
+            <option>read()</option>
+            <option>write()</option>
+            <option>print()</option>
+            <option>input()</option>
+        </options>
+        <correctAnswer>1</correctAnswer>
+        <difficulty>easy</difficulty>
+        <explanation/>
+        <timeLimitSeconds>25</timeLimitSeconds>
+    </question>
+    <question id="q-java-06">
+        <topicId>topic-java</topicId>
+        <text>Which exception is thrown when a file is not found?</text>
+        <options>
+            <option>IOException</option>
+            <option>FileNotFoundException</option>
+            <option>NullPointerException</option>
+            <option>ArithmeticException</option>
+        </options>
+        <correctAnswer>1</correctAnswer>
+        <difficulty>easy</difficulty>
+        <explanation/>
+        <timeLimitSeconds>25</timeLimitSeconds>
+    </question>
+    <question id="q-java-07">
+        <topicId>topic-java</topicId>
+        <text>Which block is always executed in exception handling?</text>
+        <options>
+            <option>try</option>
+            <option>catch</option>
+            <option>finally</option>
+            <option>throw</option>
+        </options>
+        <correctAnswer>2</correctAnswer>
+        <difficulty>easy</difficulty>
+        <explanation/>
+        <timeLimitSeconds>25</timeLimitSeconds>
+    </question>
+    <question id="q-java-08">
+        <topicId>topic-java</topicId>
+        <text>Which keyword is used to explicitly throw an exception?</text>
+        <options>
+            <option>throws</option>
+            <option>throw</option>
+            <option>catch</option>
+            <option>final</option>
+        </options>
+        <correctAnswer>1</correctAnswer>
+        <difficulty>easy</difficulty>
+        <explanation/>
+        <timeLimitSeconds>25</timeLimitSeconds>
+    </question>
+    <question id="q-daa-19">
+        <topicId>topic-daa</topicId>
+        <text>Which technique is used in 0/1 Knapsack?</text>
+        <options>
+            <option>Greedy</option>
+            <option>Dynamic Programming</option>
+            <option>Divide and Conquer</option>
+            <option>Backtracking</option>
+        </options>
+        <correctAnswer>1</correctAnswer>
+        <difficulty>medium</difficulty>
+        <explanation>0/1 Knapsack is typically solved using dynamic programming.</explanation>
+        <timeLimitSeconds>30</timeLimitSeconds>
+    </question>
+    <question id="q-java-09">
+        <topicId>topic-java</topicId>
+        <text>Which keyword is used to declare exceptions?</text>
+        <options>
+            <option>throw</option>
+            <option>throws</option>
+            <option>try</option>
+            <option>catch</option>
+        </options>
+        <correctAnswer>1</correctAnswer>
+        <difficulty>medium</difficulty>
+        <explanation/>
+        <timeLimitSeconds>25</timeLimitSeconds>
+    </question>
+    <question id="q-daa-18">
+        <topicId>topic-daa</topicId>
+        <text>Which algorithm is used for pattern matching efficiently?</text>
+        <options>
+            <option>KMP Algorithm</option>
+            <option>Prim</option>
+            <option>Kruskal</option>
+            <option>Dijkstra</option>
+        </options>
+        <correctAnswer>0</correctAnswer>
+        <difficulty>medium</difficulty>
+        <explanation>KMP avoids redundant comparisons by using a prefix function.</explanation>
+        <timeLimitSeconds>30</timeLimitSeconds>
+    </question>
+    <question id="q-daa-15">
+        <topicId>topic-daa</topicId>
+        <text>Which algorithm is used in Topological Sorting?</text>
+        <options>
+            <option>BFS</option>
+            <option>DFS</option>
+            <option>Both BFS and DFS</option>
+            <option>None</option>
+        </options>
+        <correctAnswer>2</correctAnswer>
+        <difficulty>medium</difficulty>
+        <explanation>Topological sort can be implemented using both BFS (Kahn's) and DFS.</explanation>
+        <timeLimitSeconds>25</timeLimitSeconds>
+    </question>
+    <question id="q-daa-14">
+        <topicId>topic-daa</topicId>
+        <text>Which sorting algorithm works in linear time?</text>
+        <options>
+            <option>Quick Sort</option>
+            <option>Merge Sort</option>
+            <option>Counting Sort</option>
+            <option>Heap Sort</option>
+        </options>
+        <correctAnswer>2</correctAnswer>
+        <difficulty>easy</difficulty>
+        <explanation>Counting sort is a non-comparison sort that runs in O(n+k) time.</explanation>
+        <timeLimitSeconds>25</timeLimitSeconds>
+    </question>
+    <question id="q-daa-17">
+        <topicId>topic-daa</topicId>
+        <text>Which problem is NP-Complete?</text>
+        <options>
+            <option>Binary Search</option>
+            <option>Sorting</option>
+            <option>Travelling Salesman Problem</option>
+            <option>BFS</option>
+        </options>
+        <correctAnswer>2</correctAnswer>
+        <difficulty>hard</difficulty>
+        <explanation>TSP is a classic NP-Complete optimization problem.</explanation>
+        <timeLimitSeconds>35</timeLimitSeconds>
+    </question>
+    <question id="q-daa-16">
+        <topicId>topic-daa</topicId>
+        <text>What is the time complexity of DFS?</text>
+        <options>
+            <option>O(V + E)</option>
+            <option>O(V²)</option>
+            <option>O(E²)</option>
+            <option>O(log n)</option>
+        </options>
+        <correctAnswer>0</correctAnswer>
+        <difficulty>medium</difficulty>
+        <explanation>DFS visits every vertex and edge once.</explanation>
+        <timeLimitSeconds>25</timeLimitSeconds>
+    </question>
+    <question id="q-html-01">
+        <topicId>topic-html</topicId>
+        <text>What does HTML stand for?</text>
+        <options>
+            <option>HyperText Markup Language</option>
+            <option>HyperText Modern Language</option>
+            <option>HighText Machine Language</option>
+            <option>HyperTransfer Markup Language</option>
+        </options>
+        <correctAnswer>0</correctAnswer>
+        <difficulty>easy</difficulty>
+        <explanation>HTML stands for HyperText Markup Language. It is the standard language used to create and structure content on the web.</explanation>
+        <timeLimitSeconds>20</timeLimitSeconds>
+    </question>
+    <question id="q-html-07">
+        <topicId>topic-html</topicId>
+        <text>Which HTML element defines the title of a document shown in the browser tab?</text>
+        <options>
+            <option>&lt;meta&gt;</option>
+            <option>&lt;header&gt;</option>
+            <option>&lt;title&gt;</option>
+            <option>&lt;head&gt;</option>
+        </options>
+        <correctAnswer>2</correctAnswer>
+        <difficulty>medium</difficulty>
+        <explanation>The &lt;title&gt; element is placed inside &lt;head&gt; and defines the title shown in the browser tab and search engine results.</explanation>
+        <timeLimitSeconds>25</timeLimitSeconds>
+    </question>
+    <question id="q-html-06">
+        <topicId>topic-html</topicId>
+        <text>What is the correct HTML tag for inserting a line break?</text>
+        <options>
+            <option>&lt;lb&gt;</option>
+            <option>&lt;break&gt;</option>
+            <option>&lt;br&gt;</option>
+            <option>&lt;newline&gt;</option>
+        </options>
+        <correctAnswer>2</correctAnswer>
+        <difficulty>easy</difficulty>
+        <explanation>&lt;br&gt; is a self-closing tag used to insert a single line break. It does not require a closing tag.</explanation>
+        <timeLimitSeconds>20</timeLimitSeconds>
+    </question>
+    <question id="q-html-09">
+        <topicId>topic-html</topicId>
+        <text>Which attribute is used to open a hyperlink in a new browser tab?</text>
+        <options>
+            <option>rel="noopener"</option>
+            <option>target="_blank"</option>
+            <option>href="new"</option>
+            <option>open="tab"</option>
+        </options>
+        <correctAnswer>1</correctAnswer>
+        <difficulty>medium</difficulty>
+        <explanation>target="_blank" opens the link in a new tab. It's best practice to also add rel="noopener noreferrer" for security.</explanation>
+        <timeLimitSeconds>25</timeLimitSeconds>
+    </question>
+    <question id="q-html-08">
+        <topicId>topic-html</topicId>
+        <text>What is the correct way to create an ordered list in HTML?</text>
+        <options>
+            <option>&lt;ul&gt;</option>
+            <option>&lt;list&gt;</option>
+            <option>&lt;ol&gt;</option>
+            <option>&lt;dl&gt;</option>
+        </options>
+        <correctAnswer>2</correctAnswer>
+        <difficulty>medium</difficulty>
+        <explanation>&lt;ol&gt; creates an ordered (numbered) list. &lt;ul&gt; creates an unordered (bullet) list. Each item in both uses the &lt;li&gt; tag.</explanation>
+        <timeLimitSeconds>25</timeLimitSeconds>
+    </question>
+    <question id="q-html-03">
+        <topicId>topic-html</topicId>
+        <text>Which HTML attribute is used to define inline styles?</text>
+        <options>
+            <option>class</option>
+            <option>font</option>
+            <option>styles</option>
+            <option>style</option>
+        </options>
+        <correctAnswer>3</correctAnswer>
+        <difficulty>easy</difficulty>
+        <explanation>The 'style' attribute is used to add inline CSS directly to an HTML element, e.g. &lt;p style="color:red"&gt;.</explanation>
+        <timeLimitSeconds>20</timeLimitSeconds>
+    </question>
+    <question id="q-html-02">
+        <topicId>topic-html</topicId>
+        <text>Which tag is used to define the largest heading in HTML?</text>
+        <options>
+            <option>&lt;h6&gt;</option>
+            <option>&lt;heading&gt;</option>
+            <option>&lt;h1&gt;</option>
+            <option>&lt;head&gt;</option>
+        </options>
+        <correctAnswer>2</correctAnswer>
+        <difficulty>easy</difficulty>
+        <explanation>HTML has six heading levels from &lt;h1&gt; to &lt;h6&gt;. &lt;h1&gt; is the largest and most important, while &lt;h6&gt; is the smallest.</explanation>
+        <timeLimitSeconds>20</timeLimitSeconds>
+    </question>
+    <question id="q-html-05">
+        <topicId>topic-html</topicId>
+        <text>Which HTML element is used to display an image?</text>
+        <options>
+            <option>&lt;picture&gt;</option>
+            <option>&lt;media&gt;</option>
+            <option>&lt;src&gt;</option>
+            <option>&lt;img&gt;</option>
+        </options>
+        <correctAnswer>3</correctAnswer>
+        <difficulty>easy</difficulty>
+        <explanation>The &lt;img&gt; tag is used to embed images. It is a self-closing tag and uses the 'src' attribute to specify the image path.</explanation>
+        <timeLimitSeconds>20</timeLimitSeconds>
+    </question>
+    <question id="q-html-04">
+        <topicId>topic-html</topicId>
+        <text>Which tag is used to create a hyperlink in HTML?</text>
+        <options>
+            <option>&lt;link&gt;</option>
+            <option>&lt;a&gt;</option>
+            <option>&lt;href&gt;</option>
+            <option>&lt;nav&gt;</option>
+        </options>
+        <correctAnswer>1</correctAnswer>
+        <difficulty>easy</difficulty>
+        <explanation>The &lt;a&gt; (anchor) tag is used to create hyperlinks. The destination URL is specified using the 'href' attribute.</explanation>
+        <timeLimitSeconds>20</timeLimitSeconds>
+    </question>
+</questions>

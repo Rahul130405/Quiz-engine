@@ -79,9 +79,17 @@ class ScoreEngine {
     // Using simple division and multiplying by 100.
     const percentage = totalQuestions > 0 ? (correctCount / totalQuestions) * 100 : 0;
 
+    let maxBonus = 0;
+    if (totalQuestions >= 5) {
+      maxBonus = 3;
+    } else if (totalQuestions >= 3) {
+      maxBonus = 1;
+    }
+    const maxPossibleScore = (totalQuestions * POINTS.CORRECT) + maxBonus;
+
     return {
       totalScore: this.totalScore,
-      maxPossibleScore: totalQuestions * POINTS.CORRECT + 3, // +1 (at 3) +2 (at 5) = 3 total bonus possible per 5-streak
+      maxPossibleScore,
 
       percentage: parseFloat(percentage.toFixed(2)), // Keep 2 decimal places for accuracy
 

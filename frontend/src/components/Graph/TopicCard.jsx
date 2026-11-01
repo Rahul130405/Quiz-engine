@@ -56,7 +56,7 @@ export default function TopicCard({ topic, onStart, style }) {
       {/* Prerequisites */}
       {!unlocked && prerequisites?.length > 0 && (
         <div style={{ marginTop: "0.75rem", fontSize: "0.8rem", color: "var(--text-3)" }}>
-          Requires: {prerequisites.map((p) => p.name || "prerequisite").join(", ")}
+          Requires: {prerequisites.map((p) => p && typeof p === "object" ? (p.name || p.id) : p).join(", ")}
         </div>
       )}
 

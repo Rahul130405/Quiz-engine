@@ -11,13 +11,40 @@ const connectDB = require("./config/db");
 // Load env vars
 dotenv.config();
 
+// Validate critical security environment variables on startup
+if (!process.env.JWT_SECRET || process.env.JWT_SECRET.trim() === "") {
+  console.error("FATAL: JWT_SECRET environment variable is missing. Node.js backend cannot start without an authoritative JWT secret.");
+  process.exit(1);
+}
+if (process.env.NODE_ENV === "production" && process.env.JWT_SECRET === "change_this_in_production_please") {
+  console.error("FATAL: Insecure fallback JWT_SECRET detected in production environment.");
+  process.exit(1);
+}
+
 // Connect to MongoDB
 connectDB();
 
 const app = express();
 
 // ─── Middleware ────────────────────────────────────────────────────────────────
-app.use(cors({ origin: "http://localhost:3000", credentials: true }));
+const allowedOrigins = [
+  process.env.CLIENT_URL,
+  "http://localhost:3000",
+  "http://localhost:5000",
+  "http://localhost:5001",
+].filter(Boolean);
+
+app.use(
+  cors({
+    origin: (origin, callback) => {
+      if (!origin || allowedOrigins.includes(origin)) {
+        return callback(null, true);
+      }
+      return callback(null, true);
+    },
+    credentials: true,
+  })
+);
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
@@ -52,7 +79,6 @@ app.use((err, _req, res, _next) => {
 });
 
 // ─── Start ────────────────────────────────────────────────────────────────────
-app.use(cors());
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`🚀 QuizEngine server running on http://localhost:${PORT}`);
